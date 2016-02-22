@@ -1,0 +1,125 @@
+// Footer Styles
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  // margin-bottom: 60px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  // height: 60px;
+  background: rgba(77,77,77,0.3);
+  padding: 15px;
+}
+
+.copyright {
+	float: left;
+}
+
+.copyright, .footer-links {
+	margin: 0;
+}
+
+.footer-links {
+	float: right;
+	list-style: none;
+	li {
+		display: inline-block;
+		margin-left: 15px;
+	}
+	a {
+		color: #fff;
+	}
+	a:hover {
+		color: #999;
+	}
+}
+
+@media (max-width: 992px) {
+	.footer-links {
+		li {
+			display: list-item;
+			margin-left: 0;
+			margin-right: 40px;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.copyright, .footer-links {
+		float: none;
+	}
+	.footer-links {
+		padding-left: 0;
+		padding-top: 20px;
+	}
+}
+
+.home-input {
+	padding: 30px !important;
+	width: 70% !important;
+  font-size: 28px !important;
+  line-height: 34px!important;
+
+}
+
+.home-btn {
+	padding: 18px;
+	width: 25%!important;
+	font-size: 28px;
+	line-height: 18px;
+	margin-left: 4%;
+	margin-bottom: 5px;
+}
+
+.home-frame {
+	height: 75vh;
+}
+
+.home-form {
+	margin-top: 15px;
+}
+
+.booklet-frame {
+	height: 50vh;
+}
+
+.top-pad {
+	margin-top: 65px;
+}
+
+/** Chat **/
+
+.conversation-items {
+	display: inline-block;
+	background: rgba(255,255,255,0.3);
+	padding: 15px;
+	margin: 15px!important;
+
+}
+
+.chat-input {
+	width: 100%;
+	height: 300px;
+	color: #000;
+	padding: 15px;
+}
+
+.message-items {
+	background: rgba(255,255,255,0.3);
+	padding: 15px;
+	margin: 15px!important;
+	margin-bottom: 40px!important;
+	list-style: none;
+}
+
+.timestamp {
+	margin-top: 15px;
+	float: right;
+}

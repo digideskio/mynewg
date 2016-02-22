@@ -1,0 +1,95 @@
+<div class="row panel">
+  <div class="col-md-3">
+    <h3><%= t('admin.event_details') %></h3>
+    <p><%= t('admin.event_details_desc') %></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :location %>
+        <%= f.text_field :location, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :max_attendees %>
+        <%= f.text_field :max_attendees, class: 'form-control', min: 1 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: 'form-control', rows: 6 %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h3><%= t('admin.event_photos') %></h3>
+    <p><%= t('admin.event_photos_desc') %></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <%= image_tag @event.hero_photo.file.thumb unless @event.hero_photo.nil? %>
+      <div class="form-group">
+        <%= f.fields_for :hero_photo do |ff| %>
+          <%= ff.file_field :file %>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h3><%= t('admin.event_timeline') %></h3>
+    <p><%= t('admin.event_timeline_desc') %></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group">
+        <%= f.label :start_date %>
+        <%= f.text_field :start_date, class: 'form-control', autocomplete: :off, data: { provide: :datepicker }, value: (@event.start_date.blank? ? '' : @event.start_date.strftime('%m/%d/%Y')) %>
+        <%= f.time_select :start_date, ignore_date: true, minute_step: 5 %>
+      </div>
+      <div class="form-group">
+        <%= f.label :end_date %>
+        <%= f.text_field :end_date, class: 'form-control', autocomplete: :off, data: { provide: :datepicker }, value: (@event.end_date.blank? ? '' : @event.end_date.strftime('%m/%d/%Y')) %>
+        <%= f.time_select :end_date, ignore_date: true, minute_step: 5 %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h3><%= t('admin.event_access') %></h3>
+    <p><%= t('admin.event_access_desc') %></p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content widget-last">
+      <% if @packages.empty? %>
+          <div class="helper-notification">
+            <p>You do not have any published packages yet.</p>
+            <i class="fa fa-th-large"></i>
+          </div>
+      <% else %>
+          <div class="form-group">
+            <%= label_tag 'Packages' %>
+            <%= f.collection_select :package_ids, @packages, :id, :name, {}, {:class => 'chosen', multiple: true, data: {placeholder: "Select packages..."}} %>
+          </div>
+      <% end %>
+    </fieldset>
+    <div class="form-action">
+      <%= f.submit t('admin.submit'), class: 'btn btn-success btn-large pull-right' %>
+    </div>
+  </div>
+</div>

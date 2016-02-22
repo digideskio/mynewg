@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    attributes:
+      chat:
+        participants: ''
+    errors:
+      models:
+        attachment:
+          attributes:
+            file:
+              dimensions:   'dimensions should be less then 1500x1500'
+              size:   'image size should be less then 1MB'

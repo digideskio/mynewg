@@ -1,0 +1,15 @@
+=== Omise
+
+Card number: 4242424242424242
+Expire month: 01
+Expire year: 17
+CVC: 555
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
+
+=== Links
+
+* Staging http://dev.mynewgirl.com
+* Staging API http://api.mynewgirl.com
+* API docs http://docs.mynewgirl.com

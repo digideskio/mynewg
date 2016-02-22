@@ -1,0 +1,276 @@
+// a:hover {
+// 	text-decoration: none;
+// 	h2 {
+// 		color: $grey;
+// 	}
+// 	.round-image {
+// 		border-color: $grey;
+// 	}
+// 	img {
+// 		opacity: 0.5;
+// 	}
+// }
+& {
+	margin-bottom: 200px;
+}
+
+.discover-tag {
+    position: relative;
+    color: #fff;
+    display: inline-block;
+    overflow: hidden;
+    margin: 10px 0 15px;
+
+    .profile-row {
+    	width: 24.5%;
+    	height: 150px;
+    	padding-right: 0;
+
+    	img {
+    		width: 100%;
+    	}
+    }
+
+    .profile-row + .profile-row {
+    	padding-left: 0.6666667%;
+    }
+
+    @media (max-width: 768px) {
+    	.profile-row {
+	    	width: 43%;
+	    	height: auto;
+	    	max-height: 150px;
+	    }
+
+	    .profile-row + .profile-row {
+	    	padding-left: 4%;
+	    }
+    }
+} 
+
+.profile-info {
+	box-shadow: 0px 2px 4px 10px rgba(22,22,22,0.50);
+	// border-radius: 3px;
+	background: #434343;
+	z-index: 100;
+	padding: 40px 50px;
+
+	.left {
+		margin-bottom: 40px;
+		img {
+			position: relative;
+			height: 400px;
+		}
+	}
+
+	.right {
+		padding-right: 30px;
+
+		h3 {
+			margin: 0 0 10px;
+		}
+		h3 + p {
+			margin: 0 0 20px;
+		}
+
+		.profile-info-side {
+		 	.icon {
+		 		padding-left: 30px;
+		 		background-repeat: no-repeat;
+		 		background-size: 14px 20px;
+		 	}
+		}
+
+		.btn-close {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			background: image-url("icon/close.png");	
+			background-repeat: no-repeat;
+		 	background-size: 30px 30px;
+
+		 	&:hover {
+		 		opacity: 0.4;
+		 	}
+		}
+	}
+
+	@media (max-width: 992px) {
+		.right {
+			padding: 40px 100px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.left {
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+		.right {
+			padding: 20px 20px;
+		}
+	}
+
+	.gallery {
+		text-align: center;
+
+		.image {
+			display: inline-block;
+
+			width: 10%;
+			max-height: 100px;
+			margin: 0.5%;
+			overflow: hidden;
+
+			img {
+				width: 100%;
+			}
+		}
+
+	}
+}
+
+
+.button-group {
+	margin-top: 10px;
+
+	.icon {
+		display: inline-block;
+		padding: 20px;
+		margin: 30px 0 0;
+		width: auto;
+		height: 20px;
+		overflow: hidden;
+		background-size: auto 30px;
+		background-repeat: no-repeat;
+		background-position: center top;
+		text-align: center;
+	}
+}
+
+
+
+.like {
+	background: image-url("icon/heart.png");
+}
+
+.like_active {
+	background: image-url("icon/heart_full.png");
+}
+
+.message {
+	background: image-url("icon/messages.png");
+}
+
+.event {
+	background: image-url("icon/calendar.png");
+}
+
+.member {
+	background: image-url("icon/member.png");
+}
+
+.location {
+	background: image-url("icon/location.png");	
+}
+
+
+
+
+/*************************
+ adjust for old container style
+*************************/
+#search {
+	margin: -149px 0 0;
+}
+
+
+
+/*************************
+filter style
+*************************/
+.filters {
+	line-height: 50px;
+
+	.slider-set {
+		display: inline-block;
+		margin-left: 20px;
+
+		input {
+			margin-left: 10px;
+		}
+
+		.slider {
+			width: 200px;
+			display: inline-block;
+			margin-left: 20px;
+		}
+	}
+
+}
+
+
+
+/*************************
+ Customize pagination
+*************************/
+.next {
+	background: image-url('icon/next.png');
+	background-repeat: no-repeat;
+	background-size: 50px 50px;	
+	float: right;
+	margin-right: 40px;
+}
+
+.previous {
+	background: image-url('icon/previous.png');
+	background-repeat: no-repeat;
+	background-size: 50px 50px;	
+	float: left;
+	margin-left: 40px;
+}
+
+.pagination-button {
+	margin: 50px 0 0;
+	width: 50px;
+	height: 50px;
+}
+
+
+
+/*************************
+ Customize image style
+*************************/
+.profile-photo {
+    height: 200px;
+}
+
+
+
+/*************************
+ Customize Responsive Layout
+**************************/
+@media all and (max-width: 767px) {
+	.round-image { 
+		@include round-border-image(300px);
+	}
+	.profile-photo {
+	    height: 300px;
+	}
+	#search {
+		text-align: center;
+	}
+}
+
+@media all and (min-width: 767px) {
+	#search {
+		// text-align: right;
+	}
+	.default {
+		height: 280px;
+		overflow: hidden;
+	}
+}
+

@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '',
+        admin_codes_path,
+        class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> Standard <%= "#{t('admin.code')} #{t('admin.manager')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+
+<%= form_for(:codes, url: admin_codes_path) do |f| %>
+  <div class="row panel">
+    <div class="col-md-3">
+      <h3>How Many New Codes?</h3>
+      <p>Set the number of codes you would to generate</p>
+    </div>
+
+    <div class="col-md-9">
+      <fieldset class="widget widget-content">
+        <div class="form-group">
+          <%= f.number_field :count, :id => 'code-new', class: 'form-control', value: '10', min: 1, max: 100 %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row panel">
+    <div class="col-md-3">
+      <h3>Code Gender</h3>
+      <p>Set the gender for your code</p>
+    </div>
+
+    <div class="col-md-9">
+      <fieldset class="widget widget-content widget-last">
+        <div class="radio">
+          <%= label_tag do %>
+            <%= f.radio_button :gender, :M, style: "opacity: 1;  height: auto; width: auto; overflow: visible" %>
+            Male
+          <% end %>
+        </div>
+
+        <div class="radio">
+          <%= label_tag do %>
+            <%= f.radio_button :gender, :F, style: "opacity: 1;  height: auto; width: auto; overflow: visible" %>
+            Female
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <%= f.hidden_field :type, value: 'B' %>
+    <div class="row panel">
+      <div class="col-md-3">
+        <h3>Code Representative</h3>
+        <p>Set codes representative owner</p>
+      </div>
+      <div class="col-md-9">
+        <fieldset class="widget widget-content">
+          <div class="form-group">
+            <%= f.label :representative %>
+            <%= f.collection_select(:representative_id, @representatives, :id, :full_display_name, { }, { data: { placeholder: "Select representative" }, name: 'representative_id' } ) %>
+          </div>
+        </fieldset>
+        <div class="form-action">
+          <%= f.submit 'Create', class: 'btn btn-success btn-large pull-right' %>
+        </div>
+      </div>
+    </div>
+<% end %>

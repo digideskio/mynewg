@@ -1,0 +1,97 @@
+<div class="row packages">
+<br>
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-8 col-md-4">
+      <%= link_to 'TH', packages_path(username: @user.username), :class => 'btn btn-success' %>
+      <%= link_to 'EN', packages_path(username: @user.username, locale: 'en'), :class => 'btn btn-success' %>
+    </div>
+    <div class="col-xs-12">
+      <% if params[:locale] == 'en' %>
+        <h2 class="text-center upgrade">UPGRADE BEFORE THE EVENT... MALDIVES PROMOTION - SAVE OVER 2000฿</h2>
+        <h2 class="text-center upgrade">Do not pay the Join fee ( save 1000฿ )</h2>
+        <h2 class="text-center upgrade">Get a ‘MEMBERSHIP ONLY’ GOLD CARD ( save 300฿ )</h2>
+        <h2 class="text-center upgrade">Do you want Silver or Gold Status at the Event?</h2>
+      <% else %>
+        <h2 class="text-center upgrade">โปรโมชั่นพิเศษลดมากกว่า 2000฿ อัพเกรดก่อนถึงวันงาน</h2>
+        <h2 class="text-center upgrade">ตอนนี้เรามีโปรโมชั่นพิเศษมาเสนอถ้าคุณอัพเกรดเป็นเมมเบอร์ gold จะได้รับส่วนลดค่าเข้าร่วมทันที 1000฿</h2>
+        <h2 class="text-center upgrade">แถมยังได้คลับการ์ดของเราเพื่อใช้เป็นส่วนลดในร้านอาหารต่างๆที่เข้าร่วม มูลค่า 300฿</h2>
+      <% end %>
+    </div>
+    <br>
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 package">
+      <h5>
+        <% if params[:locale] == 'en' %>
+          Upgrade to Silver ( <% if @user.female? %><%= Cms::Price.new(price: 300).single %><% else %><%= Cms::Price.new(price: 500).single %><% end %> / month )
+        <% else %>
+          อัพเกรด to Silver ( <% if @user.female? %><%= Cms::Price.new(price: 300).single %><% else %><%= Cms::Price.new(price: 500).single %><% end %> / เดือน)
+        <% end %>
+      </h5>
+      <h6>UNLOCK CHAT</h6>
+      <% if params[:locale] == 'en' %>
+        <ul>
+          <li>Attend Silver Events</li>
+          <li>Speed Dating | Dinner Parties | Pool Parties | amp&; more</li>
+          <li>Free Photoshoot at Event for your Profile</li>
+          <li>UNLOCK Chat With Members</li>
+        </ul>
+      <% else %>
+        <ul>
+          <li>ไปงานที่จัดสำหรับเมมเบอร์เงินโดยเฉพาะ</li>
+          <li>ปาร์ตี้อาหารค่ำส่วนตัว | ปาร์ตี้สระว่ายน้ำ | คลาสต่างๆ | และอื่นๆ</li>
+          <li>ถ่ายรูปฟรีจากช่างกล้องมืออาชีพ</li>
+          <li>ปลดล็อกแชทกับสมาชิกที่เป็นเมมเบอร์</li>
+        </ul>
+      <% end %>
+      <%= link_to user_purchase_package_path(username: @user.username, package: 'silver'), :class => 'btn btn-success btn-block btn-buy' do %>
+        Join Now - <% if @user.female? %><%= Cms::Price.new(price: 300).single %><% else %><%= Cms::Price.new(price: 500).single %><% end %> / month
+      <% end %>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 package">
+      <h5>
+        <% if params[:locale] == 'en' %>
+          Upgrade to Gold ( <% if @user.female? %><%= Cms::Price.new(price: 500).single %><% else %><%= Cms::Price.new(price: 1500).single %><% end %> / month )
+        <% else %>
+          อัพเกรด to Gold ( <% if @user.female? %><%= Cms::Price.new(price: 500).single %><% else %><%= Cms::Price.new(price: 1500).single %><% end %> / เดือน)
+        <% end %>
+      </h5>
+      <h6>EVENT STATUS</h6>
+      <% if params[:locale] == 'en' %>
+        <p>Sliver Benefits Plus...</p>
+        <ul>
+          <li>Gold Events At Luxury Venues</li>
+          <li>Skip the line at most Events</li>
+          <li>Walk in for FREE (Maldives party) ( save 600฿ )</li>
+          <li>Welcome Drink at door ( save )( Maldives party )</li>
+          <li>Meet Our most Beautiful Girls</li>
+        </ul>
+      <% else %>
+        <p>จ่ายเพียง1500 บาท ค่าเมมเบอร์ และยังเข้าร่วมงานปาร์ตี้วันที่12นี้ ฟรี</p>
+        <p>ได้ทุกอย่างที่ซิลเวอร์มีและอีกมากมายดังนี้...</p>
+        <ul>
+          <li>มีงานสุดหรูที่จัดเฉพาะเมมเบอร์โกลด์เท่านั้น</li>
+          <li>ไม่ต้องต่อแถวเข้างาน</li>
+          <li>เดินเข้างานได้เลยไม่ต้องจ่ายหน้างาน ( มัลดีฟส์ ปาร์ตี้ ) (ไม่ต้องจ่าย600฿)</li>
+          <li>ฟรีเวลคัมดริ้งค์ ( มัลดีฟส์ ปาร์ตี้ )</li>
+          <li>โกลด์จะได้ใกล้ชิดกับพริตตี้สาวสวยที่อยู่ในโกลด์คลับ</li>
+        </ul>
+      <% end %>
+      <%= link_to user_purchase_package_path(username: @user.username, package: 'silver'), :class => 'btn btn-success btn-block btn-buy' do %>
+        Join Now - <% if @user.female? %><%= Cms::Price.new(price: 500).single %><% else %><%= Cms::Price.new(price: 1500).single %><% end %> / month
+      <% end %>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 package">
+      <% if params[:locale] == 'en' %>
+        <p>Note: At the events you will be given a special wristband that tells everyone that you are a Gold Member. Upgrade now and spend your time enjoying the party and not worrying about upgrading.</p>
+      <% else %>
+        <p>คุณจะเป็นที่สนใจของสาวๆในคลับหากคุณเป็นโกลด์ เราจะมีสัญลักษณ์บอกชัดเจนว่าคุณคือโกลด์ ถ้าอัพเกรดตอนนี้ เอาเวลามาสนุกๆกันดีกว่าจะได้ไม่ต้องเสียเวลามาอัพเกรดทีหลังในงาน</p>
+      <% end %>
+    </div>
+</div>
+            
+            
+
+

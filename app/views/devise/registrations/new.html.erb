@@ -1,0 +1,52 @@
+<div class="sign-up">
+  <h2>Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :gender %>
+      <div class="select-style">
+        <%= f.select :gender, options_for_select([['Female', 'female'], ['Male', 'male']]), autofocus: true %>
+      </div>
+    </div>
+
+    <div class="field" id="sales-code-field">
+      <%= f.label :sales_code %>
+      <%= f.text_field :sales_code, value: resource.sales_code, disabled: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :date_of_birth %>
+        <%= f.text_field :date_of_birth, :class => 'datepicker', autocomplete: 'off', value: (resource.date_of_birth.blank? ? '' : resource.date_of_birth.strftime('%d/%m/%Y'))  %>
+    </div>
+
+    <div class="field" id="password-field">
+      <%= f.label :password %>
+      <% if @validatable %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+  
+</div>

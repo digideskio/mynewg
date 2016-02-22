@@ -1,0 +1,305 @@
+/* Global css */
+*
+{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+*, *:before, *:after 
+{
+    @include box-sizing(border-box);
+}
+body
+{
+    font-family: $baseline-font;
+    color: #777;
+    background-color: $white;
+    // font-size: 13px;
+}
+
+h1, h2, h3, h4, h5, h6,
+a, input[type=submit] {
+    font-family: $baseline-title-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    color: #3B768C;
+}
+
+p,
+span,
+small,
+input[type=text]{
+    font-family: $baseline-font;
+}
+
+h1 {font-size: $baseline-size * 2;}
+h2 {font-size: $baseline-size * 1.75;}
+h3 {font-size: $baseline-size * 1.5;}
+p {font-size: $baseline-size * 1.125;}
+small {font-size: $baseline-size * 1;}
+
+a 
+{
+    font-size: $baseline-size * 1.125;
+    color: #3290AD;
+    @include transition-property(color);
+    @include transition-duration(200ms);
+    @include transition-timing-function(ease-in);
+
+    &:hover {
+        color: $primary-text-color;
+        @include transition-property(color);
+        @include transition-duration(200ms);
+        @include transition-timing-function(ease-in);
+    }
+
+    &:hover, &:link, &:visited
+    {
+        text-decoration: none;
+    }
+
+    &.button 
+    {
+
+        display: inline-block;
+        text-align: center;
+        height: 48px;
+        line-height: 48px;
+        background-color: $highlight-color;
+        color: $primary-text-color;
+        font-weight: 600;
+
+        margin: 20px 0;
+
+        &:hover 
+        {
+            background-color: $primary-text-color;
+            color: $highlight-color;
+        }
+    }
+}
+
+.not-available
+{
+    font-family: $baseline-font;
+    font-size: $baseline-size;
+    font-weight: normal;
+
+    text-align: center;
+}
+
+
+
+/*************************
+ Customize container style
+*************************/
+.wrapper {
+    margin: 50px 15px 0px!important;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        margin: 100px 20px;
+    }
+}
+
+.topic-space {
+    margin-bottom: 50px;
+}
+
+.topic-space > h1:first-child {
+    margin-bottom: 50px;
+    margin-top: 0;
+}
+
+.header-space {
+    margin-bottom: 30px;
+}
+
+.full-width {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*************************
+ Customize inputs style
+*************************/
+input[type=submit]
+{
+    border-radius: 0;
+
+    $width: 100%;
+    $height: 48px;
+    @include button($width, $height);
+    &:hover
+    {
+        font-weight: 600;
+
+        color: $highlight-color;
+        background-color: white;
+    }
+}
+
+.button {
+    color: $primary-text-color;
+    border-radius: 0;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 48px;
+    @include button(100%, 48px);
+    &:hover
+    {
+        color: $highlight-color;
+        background-color: white;
+    }
+}
+
+
+
+/*************************
+ Customize alert message style
+*************************/
+.alert:empty
+{
+    display: none;
+}
+
+
+// ---------- Need to comeback to change later -----------
+// .alert
+// {
+//     font-family: $baseline-font;
+
+//     width: 90%;
+//     margin-left: 5%;
+
+//     text-align: center;
+
+//     color: white;
+//     border: 0;
+//     border-radius: 3px;
+// }
+
+// .alert-info
+// {
+//     color: $dark-grey;
+//     // background-color: #5DDFD1;
+//     background-color: antiquewhite;
+// }
+
+// .alert-danger
+// {
+//     background-color: #f05d53;
+// }
+
+.alert {
+    // background-color: #D58F64;
+    width: 20%;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    font-weight: 600;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .alert {
+        width: 80%;
+    }
+}
+
+.hideMe {
+    -moz-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+
+    to {
+        position: relative;
+        opacity: 0;
+        left: -9999px;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        position: relative;
+        opacity: 0;
+        left: -9999px;
+    }
+}
+
+
+
+/*************************
+ Customize image style
+*************************/
+.round-image
+{
+    @include round-border-image(300px);
+}
+
+.profile-photo
+{
+    height: 300px;
+}
+
+.cover, .event-img {
+    max-width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        bottom: 0;
+        content: attr(name);
+        display: block;
+        width: 100%;
+        height: 50px;
+        background-color: $overlay-color;
+        // opacity: 0.6;
+        color: $primary-text-color;
+        font: 1.5em/50px $baseline-title-font;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+
+/*******************************
+ Background color for testing
+********************************/
+.red
+{
+    background-color: red;
+}
+.green
+{
+    background-color: green;
+}
+.blue
+{
+    background-color: blue;
+}
+.yellow
+{
+    background-color: yellow;
+}

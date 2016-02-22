@@ -1,0 +1,5 @@
+th:
+    report_reasons:
+        spam_messages: 'ข้อความสแปม'
+        inappropriate_activity: 'การกระทำที่ไม่เหมาสม'
+        offensive_content: 'เนื้อหาที่ไม่เหมาสม'

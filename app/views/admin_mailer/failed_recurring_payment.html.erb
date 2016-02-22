@@ -1,0 +1,14 @@
+Hello Admin,
+
+The recurring payment for <%= @user.name %> has been unsuccessful. Here are the following details:
+
+Date: <%= @notification.billing_date %>
+Package: <%= @price.package.name %>
+Price: <%= @price.value %>
+
+This package price is charged every <%= @price.interval %> days.
+
+We will try to arrange payment again for the user in 3 days, if this does not succeed, the user's account will be frozen until full payment is completed.
+
+Regards
+MyNewGirl Bot

@@ -1,0 +1,21 @@
+{
+  "name": "My New Girl",
+  "version": "0.0.1",
+  "authors": [
+    "Tom Dallimore"
+  ],
+  "description": "Meet Thai babes.",
+  "license": "",
+  "ignore": [
+    "vendor/assets/bower_components"
+  ],
+  "dependencies": {
+    "modernizr": "~2.8.3",
+    "nanoscroller": "~0.8.7",
+    "jquery-form": "~3.46.0",
+    "bootstrap-datepicker": "~1.4.0",
+    "bootstrap-material-design": "~0.3.0",
+    "Chart.js": "~1.0.2",
+    "chosen": "~1.4.2"
+  }
+}

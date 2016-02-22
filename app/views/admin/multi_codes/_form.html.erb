@@ -1,0 +1,33 @@
+<div class="row panel">
+  <div class="col-md-3">
+    <h3>What value would you like to have your multi code?</h3>
+    <p>Specify a custom value for your multi code.</p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group">
+        <%= f.text_field :value,  class: 'form-control' %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+    <div class="col-md-3">
+      <h3>Code Representative</h3>
+      <p>Set code representative owner.</p>
+    </div>
+    <div class="col-md-9">
+      <fieldset class="widget widget-content">
+        <div class="form-group">
+          <%= label_tag 'Representative' %>
+          <%= f.select :representative_id, options_from_collection_for_select(@representatives, 'id', 'name', @code.representative_id) %>
+        </div>
+      </fieldset>
+      <div class="form-action">
+        <%= f.submit 'Save', class: 'btn btn-success btn-large pull-right' %>
+      </div>
+    </div>
+  </div>
+  <%= f.hidden_field :multi, value: true %>

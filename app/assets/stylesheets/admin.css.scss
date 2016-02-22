@@ -1,0 +1,67 @@
+/*
+ *= require_self
+ *= require bootstrap-datepicker/dist/css/bootstrap-datepicker
+ *= require bootstrap-material-design/dist/css/material
+ *= require chosen-styles
+*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.panel {
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+body {
+  font-family: 'Noto Sans', sans-serif!important;
+}
+
+.container {
+  margin-top: 75px!important;
+}
+
+hr {
+  border-top: 1px solid #666!important;
+}
+
+.radio input[type=radio]
+{
+    opacity: 1 !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+}
+
+#datatable {
+  width: 100%!important;
+}
+
+#codedatatable {
+  width: 100%!important;
+}
+
+
+.form-control {
+  border: 1px solid #999!important;
+  border-radius: 3px!important;
+}
+
+#code-new {
+  width: 150px!important;
+  margin-top: 25px;
+  padding-left: 10px;
+}
+
+#numpick {
+  padding-left: 10px;
+}
+
+#fpick {
+  margin-top: 25px!important;
+}

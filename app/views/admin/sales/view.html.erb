@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_sales_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-table"></i> <%= "#{t('admin.sales')} #{t('admin.tables')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <label for="datatables-from-date">From date</label>
+    <input class="form-control" type="text" id="datatables-from-date" autocomplete="off">
+  </div>
+
+  <div class="col-md-3">
+    <label for="datatables-to-date">To date</label>
+    <input class="form-control" type="text" id="datatables-to-date" autocomplete="off">
+  </div>
+
+  <div class="col-md-12">
+
+      <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+        <thead>
+        <tr>
+          <th>Sales ID</th>
+          <th>Date</th>
+          <th>Package</th>
+          <th>Package Price Type</th>
+          <th>Payment Type</th>
+          <th>Gender</th>
+          <th>Price</th>
+          <th>Member</th>
+          <th>Primary Representative</th>
+          <th>Related Representatives</th>
+          <th>Discount Code</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @sales.each do |sale| %>
+            <tr>
+              <td><%= sale.id %></td>
+              <td><%= sale.created_at.strftime("%B %d %Y - %H:%M%p") %></td>
+              <td><%= sale.package.name %></td>
+              <td><%= package_price_type(sale.package_price) %></td>
+              <td><%= sale.payment_type.titleize %></td>
+              <td><%= sale.package_price.gender.capitalize %></td>
+              <td><%= sale.price %></td>
+              <td><%= sale.member.name %></td>
+              <td><%= sale.primary_representative.try(:name) %></td>
+              <td><% sale.related_representatives.map(&:name).join(', ') %></td>
+              <td><%= sale.discount_code %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+  </div>
+</div>

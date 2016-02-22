@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_sales_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-money"></i> Commissions</h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <label for="datatables-from-date">From date</label>
+    <input class="form-control" type="text" id="datatables-from-date" autocomplete="off">
+  </div>
+
+  <div class="col-md-3">
+    <label for="datatables-to-date">To date</label>
+    <input class="form-control" type="text" id="datatables-to-date" autocomplete="off">
+  </div>
+
+  <div class="col-md-12">
+
+      <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Package</th>
+          <th>Package Price Type</th>
+          <th>Gender</th>
+          <th>Price</th>
+          <th>Member</th>
+          <th>Representative</th>
+          <th>Commission</th>
+          <th>Commission Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @sale_transaction_commissions.each do |transaction_commission| %>
+            <tr>
+                <td><%= transaction_commission.created_at.strftime("%B %d %Y - %H:%M%p") %></td>
+                <td>
+                  <%= transaction_commission.package.name %>
+                </td>
+                <td>
+                  <%= package_price_type(transaction_commission.package_price) %>
+                </td>
+                <td>
+                  <%= transaction_commission.package_price.gender.capitalize %>
+                </td>
+                <td>
+                  <%= Cms::Price.new(price: transaction_commission.sale_transaction.price).single %>
+                </td>
+                <td>
+                  <%= transaction_commission.member.name %>
+                </td>
+                <td>
+                  <%= transaction_commission.representative.name %>
+                </td>
+                <td>
+                  <%= Cms::Price.new(price: transaction_commission.price.value).single %>
+                </td>
+                <td class="align-left">
+                  <%= status_label(transaction_commission) %>
+                </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+  </div>
+</div>

@@ -1,0 +1,103 @@
+img {
+	float: left;
+	margin: 5%;
+	width: 90%
+}
+
+
+
+/*******************************************
+Add button
+*******************************************/
+.add-button {
+	padding: 5%;
+	display: inline-block;
+	max-width: 90%;
+}
+
+.add-button {
+	height: 200px;
+	width: 200px;
+	input {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.add-button {
+	background: transparent image-url("icon/add.png") center center no-repeat;
+	background-size: 130px 130px;
+}
+
+.add-button input {
+	opacity: 0;
+}
+
+.add-button:hover {
+	opacity: 0.5;
+}
+
+
+
+/*************************
+ Customize Responsive Layout
+**************************/
+@media all and (min-width: 480px) {
+	h1 {
+		margin: 5%;
+	}
+	img {
+		margin: 5%;
+		width: 40%
+	}	
+	.add-button {
+		padding: 0;
+		margin: 5%;
+		display: block;
+		float: left;
+		width: 40%;
+		height: 220px;
+	}
+}
+
+@media all and (min-width: 767px) {
+	h1 {
+		margin: 5% 1%;
+	}
+	img {
+		margin: 1%;
+		width: 31.33333%
+	}
+	.add-button {
+		padding: 0;
+		margin: 1%;
+		display: block;
+		float: left;
+		width: 31.33333%;
+		height: 220px;
+	}
+}
+
+@media all and (min-width: 992px) {
+	h1 {
+		margin: 5% 1%;
+	}
+	img {
+		margin: 1%;
+		width: 23%
+	}
+	.add-button {
+		margin: 1%;
+		width: 23%;
+		height: 220px;
+	}
+}
+
+@media all and (min-width: 1200px) {
+	.add-button {
+		margin: 1%;
+		width: 23%;
+		height: 250px;
+	}
+}
+

@@ -1,0 +1,84 @@
+/*******************************************
+ Basic component mixins 
+*******************************************/
+
+@mixin text-box ($width: $input-textbox-width, $height: $input-textbox-height, $border-color: $input-textbox-color)
+{
+    font-family: $baseline-font;
+    font-size: $baseline-size;
+    line-height: 19px;
+
+    width: $width;
+    height: $height;
+    padding-left: 20px;
+
+    border: 3px solid $border-color;
+    border-radius: 0;
+    outline: none;
+    background-color: $input-background-color;
+}
+
+@mixin button($width: 200px, $height: 40px, $color: $highlight-color, $font: $baseline-title-font)
+{
+    width: $width;
+    height: $height;
+
+    text-transform: uppercase;
+    font-family: $font;
+
+    border: 0;
+    background-color: $color;
+}
+
+
+
+/*******************************************
+ Image mixins 
+*******************************************/
+
+@mixin round-border-image($size: 300px)
+{
+    $border-width: 3px;
+    $border-gap: 10px;
+    $image-percentage: 93%;
+    
+    position: absolute;
+    left: 50%;
+
+    width: $size;
+    height: $size;
+
+    -webkit-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+
+    border: $border-width solid #d9d9d9;
+    border-radius: 100%;
+
+    .border-in
+    {
+        position: relative;
+
+        overflow: hidden;
+
+        width: $size - (($border-gap + $border-width) * 2);
+        height: $size - (($border-gap + $border-width) * 2);
+        margin: $border-gap;
+
+        content: none;
+
+        border-radius: 100%;
+    }
+    img
+    {
+        position: absolute;
+        top: -100%;
+        right: -100%;
+        bottom: -100%;
+        left: -100%;
+
+        width: $size - (($border-gap + $border-width) * 2);
+        height: $size - (($border-gap + $border-width) * 2);
+        margin: auto;
+    }
+}

@@ -1,0 +1,60 @@
+<div class="billing">
+    <div class="enter_card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="text-center"><%= @package.name %> Package - <%= Cms::Price.new(price: @package.monthly_price(@user.gender).value).single %></h2>
+        <h3 class="text-center">Maldives Promotion - Join Fee <span style="text-decoration:line-through; color: red;">฿1000</span></h3>
+    
+        <%= form_for @card, url: user_complete_package_path(@user.username, @package.name.downcase), method: :post do |f| %>
+            <!-- <h2 class="text-center">Enter your Card Details</h2> -->
+<!--             <div class="json" id="errors">
+                <div class="alert alert-danger" role="alert">
+                    Error
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <%= f.label :name %>
+                        <%= f.text_field :name, tabindex: 1, placeholder: 'Name on Card' %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :number %>
+                        <%= f.text_field :number, tabindex: 2, placeholder: 'Card Number' %>
+                    </div> 
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <%#= f.label :expiration_month %>
+                        <label>Month</label>
+                        <%= f.text_field :expiration_month, tabindex: 3, placeholder: 'MM' %>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <%#= f.label :expiration_year %>
+                        <label>Year</label>
+                        <%= f.text_field :expiration_year, tabindex: 4, placeholder: 'YYYY' %>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    
+                    <div class="form-group">
+                        <%= f.label :security_code %>
+                        <%= f.text_field :security_code, tabindex: 5, placeholder: 'CVC' %>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="alert alert-info text-center">
+                        <i class="fa fa-lock"></i> All payments are made via our secure 256-bit encrypted servers
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-action">
+                        <%= submit_tag "Buy Now" , :class => 'button' %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MyNewG</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:500,700,400' rel='stylesheet' type='text/css'> -->
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900,300italic,100italic' rel='stylesheet' type='text/css'>
+        <link href="/stylesheets/font.css" media="screen" rel="stylesheet">
+        <script src="https://cdn.omise.co/omise.js"></script>
+        <script src="https://cdn.omise.co/card.js"></script>
+        <%= stylesheet_link_tag    :application, media: 'all' %>
+        <%= javascript_include_tag :application %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <%= render 'shared/navbar', format: [:html] %>
+        <div class="container">
+            <div class="wrapper">
+                <%= render 'shared/flash', format: [:html] %>
+                <%= yield %>
+            </div>
+        </div>
+        <!-- <%= render 'shared/footer', format: [:html] %> -->
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <%= yield :footer %>
+    </body>
+</html>

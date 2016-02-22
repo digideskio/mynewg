@@ -1,0 +1,217 @@
+form
+{
+    // width: 400px;
+
+    h1
+    {
+        margin:0 0 40px;
+    }
+
+    h2
+    {
+        margin: 20px 0;
+    }
+
+    .form-half
+    {
+        overflow: hidden;
+
+        .form-group
+        {
+            width:47%;
+
+            &:first-child
+            {
+                float:left;
+            }
+
+            &:last-child
+            {
+                float:right;
+            }
+        }
+    }
+    .form-group
+    {
+        margin-bottom:20px;
+
+        label
+        {
+            display: block;
+            text-transform: uppercase;   
+        }
+        input
+        {
+            line-height: 19px;
+            height: 50px;
+            // width:400px;
+            padding: 5px 20px;
+            border: 3px solid $white;
+            border-radius: 0;
+            outline: none;
+            background-color: $dark-grey;
+            width:100%;
+
+            &:focus
+            {
+                border: 3px solid white;
+            }
+        }
+
+        select
+        {
+            padding: 13px 20px;
+            text-align: center;
+            @include border-radius(0px);
+            border: 3px solid white;
+            background-color: transparent;
+            background-image: none;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            text-transform: uppercase;
+            width:100%;
+        }
+
+        .field_with_errors
+        {
+            label
+            {
+                color: $light-red;
+            }
+            input
+            {
+                border-color: $light-red;
+            }
+        }
+
+        &.form-checkbox
+        {
+            line-height: 25px;
+            overflow: hidden;
+
+            input[type=checkbox]
+            {
+                display:inline-block;
+                width: auto;
+                height:25px;
+                margin: 0 10px 0 0;
+                float:left;
+                border: 3px solid $white;
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                padding: 3px;
+                width: 25px;      
+                position: relative; 
+                outline: none;
+                cursor: pointer;
+
+                &:checked
+                {
+                    background-color: $white;
+                    outline: none;
+
+                    &:after
+                    {
+                        position: absolute;
+                        top: 0;
+                        left: 4.5px;
+                        content: '\2715';
+                        color: $dark-grey;
+                    }     
+                }
+            }
+
+            label
+            {
+                display: inline-block;
+                margin-bottom: 0;
+                float: left;
+            }
+        }
+    }
+    .form-action
+    {
+        input[type=submit]
+        {
+            font-size:1.2em;
+            outline: none;
+            @include border-radius(0px);
+            border: 0;
+            // width: 400px;
+            height: 50px;
+            display: inline-block;
+            text-align: center;
+            background-color: $pink;
+            color: $white;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            &:hover 
+            {
+                background-color: $white;
+                color: $pink;
+            }
+        }
+    }
+
+    &#validate-referral
+    {
+        width: 100%;
+        overflow: hidden;
+
+        .form-action, .form-group
+        {
+            float:left;
+        }
+        .form-group
+        {
+            width: 77%;
+            @media (max-width: 768px) {
+                width: 50%;
+            }
+        }
+        .form-action
+        {
+            margin-left:3%;
+            width: 20%;
+            @media (max-width: 768px) {
+                width: 40%;
+            }
+
+            input[type=submit]
+            {
+                width: 100%;
+            }
+        }
+    }
+}
+.login, .sign-up, .auth-password
+{
+    text-align: center;
+
+    form
+    {
+        max-width: 400px;
+        margin: 0 auto;
+
+        .form-group
+        {
+            label
+            {
+                text-align: left;
+            }
+        }
+        .form-action
+        {
+            margin-bottom: 20px;
+        }
+    }
+    a
+    {
+        color: $orange;
+        font-weight: bold;
+        font-family: "Raleway", sans-serif;
+    }
+}

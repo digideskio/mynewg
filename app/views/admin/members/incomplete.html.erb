@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_members_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-users"></i> <%= "#{t('admin.incomplete')} #{t('admin.accounts')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center" width="100%">
+      <thead>
+      <tr>
+        <th><%= t('new_admin.member.name') %></th>
+        <th>Display Name</th>
+        <th><%= t('new_admin.member.gender') %></th>
+        <th><%= t('new_admin.member.email') %></th>
+        <th><%= t('new_admin.member.role') %></th>
+        <th><%= t('new_admin.member.created_at') %></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @leads.each do |member| %>
+          <tr>
+            <td><%= member.name %></td>
+            <td><%= member.display_name %></td>
+            <td><%= member.gender.capitalize %></td>
+            <td><%= member.email %></td>
+            <td><%= member.role.titleize %></td>
+            <td><%= member.created_at.strftime(" #{member.created_at.day.ordinalize} %b %Y") %></td>
+            <td>
+              <%= link_to edit_admin_member_path(member), class: "btn btn-primary btn-lg" do %>
+                <i class="fa fa-search"></i>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

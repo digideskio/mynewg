@@ -1,0 +1,181 @@
+.cover {
+	max-height: 400px;
+}
+
+button {
+
+	$width: 95%;
+    $height: 50px;
+	padding: 0 2.5%;
+
+    @include button($width, $height);
+    font-weight: 600;
+    font-size: 1.125em;
+
+	&.join {
+		background: image-url("icon/join.png");
+	}
+	&.invite {
+		background: image-url("icon/invite.png");
+	}
+	&.share {
+		background: image-url("icon/share.png");
+	}
+
+    &:hover
+    {
+        color: $highlight-color;
+        background-color: white;
+
+        &.join {
+			background: image-url("icon/join_h.png");
+		}
+		&.invite {
+			background: image-url("icon/invite_h.png");
+		}
+		&.share {
+			background: image-url("icon/share_h.png");
+		}
+		&.join, &.invite, &.share {
+			background-size: 20px 20px;
+			background-repeat: no-repeat;
+			background-position: 30%;
+			background-color: white;
+		}
+    }
+
+	&.join, &.invite, &.share {
+		background-size: 20px 20px;
+		background-repeat: no-repeat;
+		background-position: 30%;
+		background-color: $highlight-color;
+	}
+
+	span {
+		display: none;
+	}
+}
+
+.informations h3 {
+	padding-left: 40px;
+	background-repeat: no-repeat;
+}
+
+.about, .date {
+	background-size: 20px 20px;
+}
+
+.about {
+	background-image: image-url('icon/detail.png');
+}
+.date {
+	background-image: image-url('icon/date.png');
+}
+.location {
+	background-image: image-url('icon/location.png');
+	background-size: 14px 20px;
+}
+.going {
+	background-color: $button-pushed-color;
+	&:hover {
+		background-color: $button-pushed-color;
+		color: white;
+	}
+}
+
+h3 {
+	padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+	button {
+		width: 100%;
+		padding: 0;
+	}
+}
+
+
+.attendees {
+
+	.pic-box {
+		width: 80%;
+		margin: 10%;
+		overflow: hidden;
+		border-radius: 50%;
+
+		img {
+			width: 100%;
+
+		}
+	}
+
+	.showmore {
+		margin-top: 20px;
+	}
+}
+
+
+/*************************
+	Right column
+*************************/
+
+.left-container {
+	width: 65%;
+}
+
+.right-container {
+	padding: 70px 0;
+	width: 30%;
+	height: 100%;
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-color: $bg-highlight-color;
+	border-left-color: #505050;
+	border-left-width: 1px;
+	border-left-style: solid;
+	overflow-y: scroll;
+
+	& > * {
+		padding: 0 40px;
+	}
+}
+
+
+
+
+
+@media (max-width: 1200px) {
+	.wrapper {
+	    margin: 100px 20px;
+	}
+	.left-container {
+		width: 60%;
+	}
+	.right-container {
+		width: 35%;
+	}
+}
+
+@media (max-width: 992px) {
+	.right-container {
+		width: 100%;
+	}
+}
+
+@media (max-width: 768px) {
+	.right-container {
+		width: 100%;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+<td><%= price.id %></td>
+<td><%= price.gender.capitalize %></td>
+<td><%= package_price_type(price) %></td>
+<td><%= Cms::Price.new(price: price.value).single %></td>
+<td>
+    <a href="#" data-url="<%= edit_admin_package_package_price_path(price.package, price) %>" class="package-price-button">
+        <i class="fa fa-pencil-square-o"></i>
+    </a>
+    <a href="#" data-url="<%= admin_package_package_price_path(price.package, price) %>" class="package-price-delete">
+        <i class="fa fa-trash"></i>
+    </a>
+</td>

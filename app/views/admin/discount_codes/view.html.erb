@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_discounts_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> Discount Code Tables</h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Value</th>
+          <th>Gender</th>
+          <th>Price Type</th>
+          <th>Public?</th>
+          <th class="inner-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Packages</th>
+                </tr>
+              </thead>
+            </table>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @discount_codes.each do |discount| %>
+            <tr>
+              <td>
+                <%= discount.code %>
+              </td>
+              <td>
+                <%= discount_type(discount) %>
+              </td>
+              <td>
+                <%= discount.gender.titleize %>
+              </td>
+              <td>
+                <%= discount.price_type.titleize %>
+              </td>
+              <td>
+                <%= discount.public ? 'Yes' : 'No' %> 
+              </td>
+              <td class="inner-table">
+                <table>
+                  <tbody>
+                    <% discount.packages.each do |package| %>
+                      <tr>
+                        <td class="align-left">
+                          <%= package.name %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <%= link_to edit_admin_discount_path(discount) do %>
+                  <i class="fa fa-pencil-square-o"></i>
+                <% end %>
+
+                <%= link_to admin_discount_path(discount), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

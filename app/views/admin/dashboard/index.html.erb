@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-right language-select">
+      <%= label_tag :language, t('admin.directives_language_select_language') %>
+      <%= select_tag :language, options_for_select([%w(English en), %w(ไทย th)], I18n.locale), class: :'form-control' %>
+    </div>
+    <h1><i class="fa fa-rocket"></i> <%= t('admin.quick_start') %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+
+  <% unless current_user.junior_representative? %>
+    <%= link_to view_admin_members_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-search fa-5x"></i>
+          <h3><%= t('new_admin.view_member') %></h3>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to incomplete_admin_members_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-user-times fa-5x"></i>
+          <h3><%= t('new_admin.view_leads') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to admin_sales_path do %>
+    <div class="col-md-2 col-xs-6">
+      <div class="panel panel-default">
+        <i class="fa fa-usd fa-5x"></i>
+        <h3><%= t('new_admin.view_sales_reports') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless current_user.junior_representative? %>
+    <%= link_to view_admin_codes_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-list fa-5x"></i>
+          <h3><%= t('new_admin.view_standard_codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if current_user.admin? %>
+    <%= link_to new_admin_code_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-ticket fa-5x"></i>
+          <h3><%= t('new_admin.create_new_codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+
+  <%= link_to view_admin_packages_path do %>
+    <div class="col-md-2 col-xs-6">
+      <div class="panel panel-default">
+        <i class="fa fa-cubes fa-5x"></i>
+        <h3><%= t('new_admin.view_packages') %></h3>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1><i class="fa fa-dashboard"></i> <%= t('new_admin.all_manager_panels') %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+  <% unless current_user.junior_representative? %>
+    <%= link_to admin_members_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-users fa-5x"></i>
+          <h3><%= t('new_admin.member_manager') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to admin_sales_path do %>
+    <div class="col-md-2 col-xs-6">
+      <div class="panel panel-default">
+        <i class="fa fa-credit-card fa-5x"></i>
+        <h3><%= t('new_admin.sales_manager') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.admin? %>
+    <%= link_to admin_events_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-calendar fa-5x"></i>
+          <h3><%= t('new_admin.event_manager') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% unless current_user.junior_representative? %>
+    <%= link_to admin_codes_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-ticket fa-5x"></i>
+          <h3><%= t('new_admin.code_manager') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if current_user.admin? %>
+    <%= link_to admin_packages_path do %>
+      <div class="col-md-2 col-xs-6">
+        <div class="panel panel-default">
+          <i class="fa fa-cubes fa-5x"></i>
+          <h3><%= t('new_admin.package_manager') %></h3>
+        </div>
+      </div>
+    <% end %>
+
+  <%= link_to admin_discounts_path do %>
+    <div class="col-md-2 col-xs-6">
+      <div class="panel panel-default">
+        <i class="fa fa-ticket fa-5x"></i>
+        <h3><%= t('new_admin.promo_code_manager') %></h3>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>

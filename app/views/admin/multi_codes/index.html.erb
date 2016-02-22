@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_codes_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> <%= "#{t('admin.view_all')}" %> Multi <%= "#{t('admin.codes')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="codedatatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>Date Created</th>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Representative</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @codes.each do |code| %>
+          <tr>
+            <td>
+              <%= code.created_at.strftime(" #{code.created_at.day.ordinalize} %b %Y") %>
+            </td>
+            <td>
+              <%= code.value %>
+            </td>
+            <td>
+              <%= code.code_type %>
+            </td>
+            <td class="align-left">
+              <%= code.representative.name %>
+            </td>
+            <td>
+              <%= link_to edit_admin_multi_code_path(code) do %>
+                  <i class="fa fa-pencil-square-o"></i>
+                <% end %>
+
+                <%= link_to admin_multi_code_path(code), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash"></i>
+                <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#codedatatable').DataTable( {
+        "order": [[ 0, "desc" ]],
+        "pageLength": 25
+    } );
+} );
+</script>

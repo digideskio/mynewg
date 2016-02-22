@@ -1,0 +1,59 @@
+
+$menu-height : 50px;
+
+#logo-name {
+   	font-family: gothic;
+   	font-weight: bold;
+	font-size: $baseline-size * 1;
+	color: white;
+	letter-spacing: 2px;
+}
+
+.navbar-brand {
+	min-height: $menu-height;
+	max-height: $menu-height;
+}
+
+.navbar-toggle {
+	// margin-top: 30px;
+	// margin-bottom: 30px;
+	color: white;
+}
+
+.navbar-nav > li > a {
+	text-transform: uppercase;
+	font-family: $baseline-font;
+	font-size: $baseline-size * 1;
+	font-weight: bold;
+	color: white;
+	letter-spacing: 1.2px;
+}
+
+.navbar-nav > li {
+	// border-bottom: 2px solid $pink;
+	// margin-left: 10%;
+	// margin-right: 15%;
+	color: white;
+}
+
+.navbar-nav {
+    li.active a {
+        color: $pink;
+    }
+}
+
+.navbar {
+    background-color: #3D606D;
+}
+
+.navbar-picture img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.image-dropdown {
+	padding: 5px 20px !important;
+	margin: 0;
+}

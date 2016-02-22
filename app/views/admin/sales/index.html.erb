@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_root_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-credit-card"></i> <%= "#{t('admin.sales')} #{t('admin.manager')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+  <%= link_to view_admin_sales_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-table fa-5x"></i>
+        <h3><%= "#{t('admin.view')} #{t('admin.sales')} #{t('admin.tables')}" %></h3>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to commissions_admin_sales_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-money fa-5x"></i>
+        <h3>Comissions</h3>
+      </div>
+    </div>
+  <% end %>
+</div>

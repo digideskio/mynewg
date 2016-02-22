@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <%= link_to '', admin_packages_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+        <h1><i class="fa fa-ticket"></i> <%= "#{t('admin.update')} #{t('admin.package')}" %></h1>
+        <hr>
+    </div>
+</div>
+
+<%= form_for [:admin, @package] do |f| %>
+    <% if @package.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+            <ul>
+                <% @package.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="row panel">
+        <div class="col-md-3">
+            <h3><%= t('admin.package_details') %></h3>
+            <p><%= t('admin.package_details_desc') %></p>
+        </div>
+
+        <div class="col-md-9">
+            <fieldset class="widget widget-content">
+                <div class="form-group">
+                    <%= f.label :name %>
+                    <%= f.text_field :name, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :tier %>
+                    <%= f.number_field :tier, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :description %>
+                    <%= f.text_area :description, class: 'form-control', rows: 8 %>
+                </div>  
+                <div class="form-group">
+                    <%= f.label :chat_status %>
+                    <%= f.select :chat_status, options_for_select([['Disabled', 'chat_disabled'], ['Enabled', 'chat_enabled']], f.object.chat_status), {}, class: 'form-control' %>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row panel">
+        <div class="col-md-3">
+          <h3><%= t('admin.prices') %></h3>
+          <p><%= t('admin.package_prices_desc') %></p>
+            <a href="#" class="btn btn-info btn-normal package-price-button" data-url="<%= new_admin_package_package_price_path(@package) %>">Add Price</a>
+        </div>
+
+        <div class="col-md-9">
+            <fieldset class="widget widget-content" id="package-price-table">
+                <% if @package.prices.active.empty? %>
+                    <div class="helper-notification">
+                        <p>You do not have any prices for this package.</p>
+                        <i class="icon-coin"></i>
+                    </div>
+                <% else %>
+                    <%= render partial: 'admin/packages/prices/table', format: [:html] %>
+                <% end %>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row panel">
+        <div class="col-md-3">
+          <h3><%= t('admin.commissions') %></h3>
+          <p><%= t('admin.package_commissions_desc') %></p>
+            <a href="#" class="btn btn-info btn-normal package-price-commission-button" data-url="<%= new_admin_package_package_price_commission_path(@package) %>">Add Commission</a>
+        </div>
+
+        <div class="col-md-9">
+            <fieldset class="widget widget-content widget-last" id="package-price-commission-table">
+                <% if @package.commissions.active.empty? %>
+                    <div class="helper-notification">
+                        <p>You do not have any commissions for this package.</p>
+                        <i class="icon-coin"></i>
+                    </div>
+                <% else %>
+                    <%= render partial: 'admin/packages/commissions/table', format: [:html] %>
+                <% end %>
+            </fieldset>
+            <div class="form-action">
+                <%= f.submit 'Publish', :class => 'btn btn-success btn-large pull-right' %>
+                <%= f.submit 'Save As Draft', :class => 'btn btn-info btn-large pull-right' %>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<div id="package-price-modal"></div>
+<div id="package-price-commission-modal"></div>

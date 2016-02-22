@@ -1,0 +1,6 @@
+<div class="">
+    <h1>Failure</h1><br>
+  <p>You've been unsuccesful in purchasing the <%= @package.name %> package.</p>
+    <p>Please try again with a different payment method.</p>
+    <%= link_to 'Try Again', user_purchase_package_path(@user.username, @package.name.downcase), :class => 'btn btn-success btn-block btn-buy' %>
+</div>

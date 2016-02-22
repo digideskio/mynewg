@@ -1,0 +1,383 @@
+<h3>User Account Info</h3>
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.user_details') %></h4>
+    <p><%= t('admin.user_details_desc') %><br> <span style="color: red;"><em>* = Required Field</em></span></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>First and Last Name</label> *
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Display Name</label> *
+        <%= f.text_field :display_name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+       <div class="form-group">
+        <%= f.label :username %> *
+        <%= f.text_field :username, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :email %> *
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :sales_code %> *
+        <%= f.text_field :sales_code, value: f.object.sales_code, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :gender %> *
+        <%= f.select :gender, options_from_enum_hash(User.genders), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :date_of_birth %> *
+        <%= f.text_field :date_of_birth, :id => 'dob-datepicker', :class => 'form-control', autocomplete: :off,  data: { provide: :datepicker } %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :location %> *
+        <%= f.select :location, options_for_select([['Chiang Mai', 'Chiang Mai']]), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :phone %> *
+        <%= f.text_field :phone, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :line_id %>
+        <%= f.text_field :line_id, class: 'form-control' %>
+      </div>
+    </div>
+
+    </fieldset>
+  </div>
+</div>
+
+<h3>Extended Profile</h3>
+<div class="row panel">
+  <div class="col-md-3">
+    <h4>All the extended profile things</h4>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :drink %>
+        <%= f.select :drink, options_from_enum_hash(User.drinks, lambda { |l| l.gsub('drink_', '') }), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :smoke %>
+        <%= f.select :smoke, options_from_enum_hash(User.smokes, lambda { |l| l.gsub('smoke_', '') }), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :english %>
+        <%= f.select :english, options_from_enum_hash(User.englishes, lambda { |l| l.gsub('en_', '') }), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :thai %>
+        <%= f.select :thai, options_from_enum_hash(User.thais, lambda { |l| l.gsub('th_', '') }), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :height %>
+        <%= f.number_field :height, class: 'form-control', :id => 'numpick', min: 1, max: 270 %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :kids %>
+        <%= f.select :kids, options_for_select([['None', false], ['Have some', true]], f.object.kids), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :visible %>
+        <%= f.select :visible, options_for_select([['Invisible', false], ['Visible', true]], f.object.visible), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :status %>
+        <%= f.select :status, options_for_select([['Active', 'active'], ['Freeze', 'freeze'], ['Suspended', 'suspended']], f.object.status), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :platinum %>
+        <%= f.select :platinum, options_for_select([['Yes', true], ['No', false]], f.object.platinum), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :waive_join_fee %>
+        <%= f.select :waive_join_fee, options_for_select([['Yes', true], ['No', false]], f.object.waive_join_fee), {}, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :biography %>
+        <%= f.text_area :biography, class: 'form-control' %>
+      </div>
+    </div>
+
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.member_role') %> &amp; <%= t('admin.package') %></h4>
+    <p><%= t('admin.role_desc') %><br><%= t('admin.profile_package_desc') %></p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :role %> *
+          <%= f.select :role, options_for_select([['Lead', 'lead'], ['Limited', 'limited'], ['Member', 'member'], ['Junior Representative', 'junior_representative'], ['Senior Representative', 'senior_representative'], ['Admin', 'admin']], :selected => f.object.role), { include_blank: nil }, { :class => 'form-control' } %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :package %>
+          <%= f.select :package_id, options_for_select(@packages, f.object.package_id), {}, class: 'form-control' %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<% if @member.senior_representative? %>
+  <div class="row panel">
+    <div class="col-md-3">
+      <h4>Junior Representatives</h4>
+      <p>Assign the junior representatives a senior representative will manage.</p>
+    </div>
+    <div class="col-md-9">
+      <fieldset class="widget widget-content">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :role %> *
+            <%= f.collection_select :junior_ids, @junior_reps, :id, :full_display_name, {}, {:class => 'chosen', multiple: true, data: {placeholder: "Select associated junior reps..."}} %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+<% end %>
+
+<br>
+<h3>User Images And Video</h3>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.profile_photo') %></h4>
+    <p><%= t('admin.profile_photo_desc') %></p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group" id="fpick">
+        <%= f.fields_for :profile_photo do |photo| %>
+          <%= photo.file_field :file %>
+          <% unless @member.profile_photo.nil? or @member.profile_photo.new_record? %>
+            <%= image_tag(@member.profile_photo.file.thumb) %>
+          <% end %>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.user_photos') %></h4>
+    <p><%= t('admin.user_photos_desc') %></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group">
+        <%= f.fields_for :gallery_photos do |photo| %>
+          <% if photo.object.new_record? %>
+            <%= photo.file_field :file %>
+          <% else %>
+            <div class="col-md-2">
+              <%= image_tag photo.object.file.thumb, class: "img-responsive" %>
+            </div>
+          <% end %>
+          <%= photo.link_to_remove 'Remove this photo', class: "btn btn-danger" %><br>
+        <% end %>
+        <br>
+        <%= f.link_to_add 'Add a photo', :gallery_photos %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.profile_video') %></h4>
+    <p><%= t('admin.profile_video_desc') %></p>
+  </div>
+
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= f.label :profile_video_url %>
+          <%= f.text_field :profile_video_url, class: 'form-control' %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+<br>
+
+<h3>Payment Details</h3>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4><%= t('admin.card') %></h4>
+    <p><%= t('admin.card_desc') %></p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+      <div class="form-group">
+        <%= fields_for :card, @card do |c| %>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= c.label :name %>
+              <%= c.text_field :name, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= c.label :number %>
+              <%= c.text_field :number, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= c.label :expiration_month %>
+              <%= c.text_field :expiration_month, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= c.label :expiration_year %>
+              <%= c.text_field :expiration_year, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= c.label :security_code %>
+              <%= c.text_field :security_code, class: 'form-control' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4>Cash</h4>
+    <p>Paid By Cash Details</p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :paid_by_cash %>
+        <%= f.select :paid_by_cash, options_for_select([['Yes', true], ['No', false]], :selected => f.object.paid_by_cash), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :cash_amount, 'Current Cash amount' %>
+          <%= f.label :cash_amount, @member.cash_amount %><br>
+          <%= f.number_field :cash_amount, value: 0.0, class: 'form-control', :id => 'numpick' %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="row panel">
+  <div class="col-md-3">
+    <h4>Language</h4>
+    <p>Set the language setting for your account.</p>
+  </div>
+  <div class="col-md-9">
+    <fieldset class="widget widget-content">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :locale %>
+        <%= f.select :locale, options_for_select([['English', 'en_US'], ['Thai', 'th_TH']], :selected => f.object.locale), {}, class: 'form-control' %>
+      </div>
+    </div>
+    </fieldset>
+  </div>
+</div>
+<br>
+
+
+
+<script>
+
+$("#dob-datepicker").datepicker(
+    {
+        format: "yyyy/mm/dd 00:00:00 UTC",
+        startView: "decade"
+    });
+</script>

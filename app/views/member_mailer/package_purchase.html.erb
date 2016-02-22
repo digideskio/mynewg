@@ -1,0 +1,19 @@
+<% content_for :title, "Congratulations on purchasing the #{@user.package.name} package!" %>
+<% content_for :header_1, "Package Upgrade" %>
+<% content_for :header_2, @user.package.name %>
+<tr>
+    <td><%= image_tag "#{Rails.application.secrets.mailer_asset_host}/clear.gif", :style => 'block', :width => '50', :height => '30' %></td>
+    <td align="left" width="500">
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Hello <%= @user.name %>,</p> 
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Congratulations on purchasing the <strong><%= @user.package.name %></strong> package.</p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Please go to the <%= link_to 'iOS app store', 'https://itunes.apple.com/us/app/mynewg/id1024497083?mt=8' %> or <%= link_to 'Android play store', 'https://play.google.com/store/apps/details?id=com.mynewgirl'%> and download MyNewG to access upcoming events and chat with members.</p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">If you have any questions, comments or concerns please contact us at <strong>mynewg</strong> on LINE.</p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Hope to see you soon</p>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;"><strong>MyNewG Team</strong></p>
+    </td>
+    <td><%= image_tag "#{Rails.application.secrets.mailer_asset_host}/clear.gif", :style => 'block', :width => '50', :height => '30' %></td>
+</tr>

@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_root_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-users"></i> <%= t('new_admin.member_manager') %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+
+  <%= link_to view_admin_members_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-users fa-5x"></i>
+        <h3><%= t('new_admin.view_member') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to new_admin_member_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-plus fa-5x"></i>
+        <h3><%= t('new_admin.add_new_member') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to incomplete_admin_members_path do %>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <i class="fa fa-user-times fa-5x"></i>
+          <h3><%= t('new_admin.view_leads') %></h3>
+        </div>
+      </div>
+  <% end %>
+
+  <%= link_to view_admin_members_path(status: 2) do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-users fa-5x"></i>
+        <h3>Suspended Users</h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to admin_user_flags_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-flag fa-5x"></i>
+        <h3><%= t('new_admin.view_user_flags') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to export_admin_members_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-download fa-5x"></i>
+        <h3>Export users</h3>
+      </div>
+    </div>
+  <% end %>
+
+<!--   <a href="#members/update">
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-edit fa-5x"></i>
+        <h3><%= t('admin.update') %><br><%= t('admin.member') %></h3>
+      </div>
+    </div>
+  </a> -->
+</div>

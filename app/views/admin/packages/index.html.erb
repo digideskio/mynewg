@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_root_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-cubes"></i> <%= "#{t('admin.package')} #{t('admin.manager')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+  <a href="#packages/view">
+  <%= link_to view_admin_packages_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-cubes fa-5x"></i>
+        <h3><%= t('admin.view_all') %><br><%= t('admin.packages') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to new_admin_package_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-plus fa-5x"></i>
+        <h3><%= t('admin.add_new') %><br><%= t('admin.package') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+<!--   <a href="#packages/update">
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-edit fa-5x"></i>
+        <h3><%= t('admin.update') %><br><%= t('admin.package') %></h3>
+      </div>
+    </div>-->
+  </a>
+</div>

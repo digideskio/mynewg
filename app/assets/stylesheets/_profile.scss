@@ -1,0 +1,439 @@
+#favourite
+{
+    button
+    {
+        outline: none;
+        border: 0;
+        background:none;
+        p
+        {
+            color: #ec3b50;
+
+            &:hover
+            {
+                color: #fff;
+            }
+        }
+    }
+}
+.favourite {
+    background: image-url("icon/favourite.png");
+}
+
+.favourite_active {
+    background: image-url("icon/favourite_active.png");
+}
+ .user-profile
+{
+    /*************************
+     Title
+    *************************/
+
+    .edit-button {
+    	display: inline-block;
+    	width: 25px;
+    	height: 25px;
+    	float: right;
+    	background: image-url("icon/edit.png");
+    	background-repeat: no-repeat;
+    	background-size: 25px;
+    }
+
+
+
+    /*************************
+     User Informations
+    *************************/
+
+    .informations {
+    	padding-left: 40px;
+
+    	h3 {
+    		margin: 0 0 30px;
+    	}
+    	p {
+    		margin-bottom: 3px;
+    		span {
+    			padding-left: 20px;
+    		}
+    	}
+    }
+
+    table {
+    	color: $secondary-text-color;
+    	// word-wrap: break-word;
+    	// width: 100%;
+    	// // max-width: 100%;
+    	// display: block;
+    	table-layout: fixed;
+    	word-wrap: break-word;
+    	width: 100%;
+    }
+
+    th {
+    	vertical-align: top;
+    	font-weight: normal;
+    	width: 120px;
+    }
+
+    td {
+    	max-width: 100%;
+    }
+
+
+
+
+    /*************************
+     Cover and Profile picture
+    *************************/
+    .cover {
+    	max-width: 100%;
+    	height: 300px;
+    	overflow: hidden;
+    	position: relative;
+
+        &:hover
+        {
+            .cover-inner div
+            {
+                @include opacity(1);
+            }
+        }
+        &:before 
+        {
+            position: absolute;
+            bottom: 0;
+            content: attr(name);
+            display: block;
+            width: 100%;
+            height: 50px;
+            background-color: $overlay-color;
+            color: $white;
+            @include opacity(0.8);
+            font: 1.5em/50px $baseline-title-font;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .cover-inner
+        {
+            position: relative;
+            height:300px;
+            div
+            {
+                position: absolute;
+                top:0;
+                left:0;
+                @include opacity(0);
+                height:100%;
+                width: 100%;
+                background-color:rgba(0,0,0,0.6);
+                line-height: 300px;
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                @include transition-property(opacity);
+                @include transition-duration(0.4s);
+                @include transition-timing-function(linear);
+                cursor: pointer;   
+            }
+
+        	.portrait{
+        		width: 100%;
+        	}
+
+        	.landscape {
+        		height: 100%;
+        	}
+
+        	img {
+        		width: 100%;
+        	}
+        }
+    }
+
+    .profile-image {
+    	position: absolute;
+    	width: 130px;
+    	height: 130px;
+        @include border-radius(50%);
+    	overflow: hidden;
+
+    	top: 150px;
+    	left: 8%;
+    	z-index: 100;
+
+        .profile-image-inner
+        {
+            position: relative;
+
+            div
+            {
+                @include border-radius(50%);
+                position: absolute;
+                top:0;
+                left:0;
+                @include opacity(0);
+                height:130px;
+                width:130px;
+                background-color:rgba(0,0,0,0.6);
+                line-height: 130px;
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                @include transition-property(opacity);
+                @include transition-duration(0.4s);
+                @include transition-timing-function(linear);
+                cursor: pointer;
+            }
+        }
+
+        &:hover
+        {
+            .profile-image-inner div
+            {
+                @include opacity(1);
+            }
+        }
+    }
+
+    .button-group {
+    	margin-bottom: 30px;
+    }
+
+    .button-group {
+    	.icon {
+    		// font: 1em $baseline-font;
+    		display: inline-block;
+    		padding: 25px;
+    		margin: 15px 0 0;
+    		width: auto;
+    		height: 40px;
+    		overflow: hidden;
+    		background-size: auto 40px;
+    		background-repeat: no-repeat;
+    		background-position: center top;
+    		text-align: center;
+    	}
+    }
+
+    .like {
+    	background: image-url("icon/heart.png");
+    }
+
+    .message {
+    	background: image-url("icon/messages.png");
+    }
+
+    .event {
+    	background: image-url("icon/calendar.png");
+    }
+
+    .member {
+    	background: image-url("icon/member.png");
+    }
+
+    .gallery-photos
+    {
+        overflow: hidden;
+
+        div
+        {
+            float:left;
+            position: relative;
+            cursor:pointer;
+            overflow: hidden;
+
+            width: 24%;
+            margin: 0 1% 1% 0;
+            img {
+                position: relative;
+                width: 100%;
+            }
+
+            &.add-image
+            {
+                // height:250px;
+                padding: 12%;
+                background-color: rgba(166, 167, 167, 0.3);
+
+                @include transition-property(all);
+                @include transition-duration(100ms);
+                @include transition-timing-function(linear);
+
+                form
+                {
+                    display: none;
+                }
+
+                img {
+                    @include opacity(0.9);
+                }
+
+                &:hover{
+                    background-color: rgba(166, 167, 167, 0.1);
+                    @include transition-property(all);
+                    @include transition-duration(100ms);
+                    @include transition-timing-function(linear);
+                    img {
+                        @include opacity(1);
+                        @include transition-property(all);
+                        @include transition-duration(100ms);
+                        @include transition-timing-function(linear);
+                    }
+                }
+            }
+
+            @media (max-width: 768px) {   
+                width: 47%;
+                margin: 0 2.5% 2.5% 0;
+
+                &.add-image
+                {  
+                    padding: 23.75%;
+                    margin: 0 2.5% 2.5% 0;
+                }
+            }
+
+            a
+            {
+                display: block;
+                position: absolute;
+                top:0;
+                left:0;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+
+                img
+                {
+                    position: relative;
+                    top: 50%;
+
+                    -webkit-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
+                    height:100px;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+
+
+
+    /*************************
+     Credit cards
+    *************************/
+
+    .card {
+    	font: $baseline-title-font;
+    	color: $primary-text-color;
+        padding: 30px 40px;
+        background-color: $card-color;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+
+        width: 330px;
+        height: 180px;
+        margin: auto;
+        margin-bottom: 50px;
+
+        .name {
+        	width: 50%;
+        	height: 45px;
+        	overflow: hidden;
+        }
+        .number {
+        	letter-spacing: 4px;
+        	line-height: 3em;
+        	color: $light-grey;
+        }
+        .exp {
+        	font-size: 0.75em;
+        	float: right;
+        	margin-top: -55px;
+        }
+        .date {
+        	font-size: 1.5em;
+        	padding-left: 10px;
+        }
+        img {
+        	position: absolute;
+        	height: 40%;
+        	width: auto;
+        	top: 30%;
+        	left: 50%;
+            -webkit-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+            opacity: 0;
+        }
+        .add-button {
+        	opacity: 0.9;
+        }
+
+        &:hover {
+        	background-color: rgba($card-color, 0.1);
+        	.info {
+        		opacity: 0.1;
+        	}
+
+    	    img {
+    	    	opacity: 1;
+    	    }
+        }
+    }
+
+    @media (max-width: 490px) {
+    	.card {
+    		padding: 20px;
+    		padding-bottom: 0;
+    		width: 280px;
+    		height: 160px;
+    		.number {
+    			font-size: 1em;
+    		}	
+    		// margin-left: -20px;
+    	}
+    }
+
+    @media (min-width: 768px) and (max-width: 992px) {
+    	.card {
+    		padding: 20px;
+    		padding-bottom: 0;
+    		width: 280px;
+    		height: 160px;
+    	}
+    }
+
+    @media (max-width: 600px) {
+    	.informations {
+    		padding-left: 15px;
+    	}
+    }
+
+    @media (max-width: 545px)
+    {
+    	.button-group {
+    		p {
+    			display: none;
+    		}
+    	}
+    	.cover::before {
+    		top: 0;
+    	}
+
+    	.my-gallery {
+    		.overlay, .img-box, .add-image {
+    			width: 45%;
+    			margin-right: 2.5%;
+    			margin-bottom: 2.5%;
+    		}
+    	}
+    }
+}

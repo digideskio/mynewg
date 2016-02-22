@@ -1,0 +1,11 @@
+<td><%= commission.package_price_id %></td>
+<td><%= commission.role.titleize %></td>
+<td><%= Cms::Price.new(price: commission.value).single %></td>
+<td>
+    <a href="#" data-url="<%= edit_admin_package_package_price_commission_path(commission.package, commission) %>" class="package-price-commission-button">
+        <i class="fa fa-pencil-square-o"></i>
+    </a>
+    <a href="#" data-url="<%= admin_package_package_price_commission_path(commission.package, commission) %>" class="package-price-commission-delete">
+        <i class="fa fa-trash"></i>
+    </a>
+</td>

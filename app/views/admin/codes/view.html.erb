@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_codes_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> <%= "#{t('admin.view_all')}" %> <%= params[:status] == 'used' ? 'Used' : 'Standard' %> <%= "#{t('admin.codes')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="codedatatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>Date Created</th>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Gender</th>
+          <% if params[:status] == 'used' %>
+            <th>Member</th>
+          <% end %>
+          <th>Representatives</th>
+          <th>Scratch barcode</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @codes.each do |code| %>
+          <tr>
+            <td>
+              <%= code.created_at.strftime(" #{code.created_at.day.ordinalize} %b %Y") %>
+            </td>
+            <td>
+              <%= code.value %>
+            </td>
+            <td>
+              <%= code.code_type %>
+            </td>
+            <td>
+              <%= code.gender?.capitalize if code.gender %>
+            </td>
+            <% if params[:status] == 'used' %>
+              <td>
+                <%= code.member.name %>
+              </td>
+            <% end %>
+            <td class="align-left">
+              <%= code.representative.name %>
+            </td>
+            <td>
+              <%= code.scratch_barcode %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#codedatatable').DataTable( {
+        "order": [[ 0, "desc" ]],
+        "pageLength": 25
+    } );
+} );
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="text/html; charset=US-ASCII" http-equiv="Content-Type"/>
+
+        <title>MNG Admin</title>
+
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Noto+Sans' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/dt-1.10.9,r-1.0.7/datatables.min.css"/>
+
+        <%= stylesheet_link_tag  :admin, media: :all, 'data-turbolinks-track' => true %>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <%= javascript_include_tag :admin, 'data-turbolinks-track' => true %>
+
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="<%= admin_root_path %>">MNG</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="adminNavbar">
+                    <ul class="nav navbar-nav">
+                        
+                        
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li role="presentation" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="<%= admin_root_path %>"><i class="fa fa-dashboard"></i> <%= t('admin.dashboard') %></a></li>
+                                <% unless current_user.junior_representative? %>
+                                    <li><a href="<%= admin_members_path %>"><i class="fa fa-users"></i> <%= t('admin.members') %></a></li>
+                                <% end %>
+                                <li><a href="<%= admin_sales_path %>"><i class=" fa fa-credit-card"></i> <%= t('admin.sales') %></a></li>
+                                <% if current_user.admin? %>
+                                    <li><a href="<%= admin_events_path %>"><i class="fa fa-calendar"></i> <%= t('admin.events') %></a></li>
+                                <% end %>
+                                <% unless current_user.junior_representative? %>
+                                    <li><a href="<%= admin_codes_path %>"><i class="fa fa-ticket"></i> <%= t('admin.codes') %></a></li>
+                                <% end %>
+                                <% if current_user.admin? %>
+                                    <li><a href="<%= admin_packages_path %>"><i class="fa fa-cubes"></i> <%= t('admin.packages') %></a></li>
+                                    <li><a href="<%= admin_discounts_path %>"><i class="fa fa-ticket"></i> Promo Codes</a></li>
+                                <% end %>
+                                <li><%= link_to destroy_user_session_path, method: :delete do %><i class="fa fa-sign-out"></i> <%= t('admin.sign_out') %><% end %></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div id="main">
+            <div class="container">
+                <%= yield %>
+            </div>
+        </div>
+
+         
+    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/dt-1.10.9,r-1.0.7/datatables.min.js"></script>
+    </body>
+</html>

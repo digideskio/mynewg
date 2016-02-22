@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title><%= "#{yield(:title)} - My New Girl Administration" %></title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="text/html; charset=US-ASCII" http-equiv="Content-Type"/>
+        <%= csrf_meta_tags %>
+        <%= stylesheet_link_tag    :admin_old, media: 'all', 'data-turbolinks-track' => true %>
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,500,700,300" rel="stylesheet" type="text/css">
+        <link href="/stylesheets/font.css" media="screen" rel="stylesheet">
+        <%= javascript_include_tag "modernizr/modernizr" %>
+        <%= javascript_include_tag :admin_old, 'data-turbolinks-track' => true %>
+        <%= yield :header %>
+    </head>
+    <body>
+        <div class="all-wrapper">
+            <div class="mp-pusher" id="mp-pusher">
+                <%= render partial: 'admin_old/shared/navigation/mobile', format: [:html] %>
+                <div class="scroller">
+                    <div class="scroller-inner">
+                        <%= render partial: 'admin_old/shared/header', format: [:html] %>
+                        <div id="sidebar" class="desktop">
+                            <%= render partial: 'admin_old/shared/navigation/desktop', format: [:html] %>
+                        </div>
+                        <div class="main">
+                            <%= render partial: 'admin_old/shared/loading', format: [:html] %>
+                            <div class="container">
+                                <div class="row">
+                                    <%= render_flash %>
+                                    <%= render_breadcrumbs %>
+                                    <%= yield %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%= yield :footer %>
+    </body>
+</html>

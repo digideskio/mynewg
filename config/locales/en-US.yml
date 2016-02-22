@@ -1,0 +1,5 @@
+'en-US':
+  report_reasons:
+        spam_messages: Spam Messages
+        inappropriate_activity: Inappropriate Activity
+        offensive_content: Offensive Content

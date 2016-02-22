@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_packages_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> <%= "#{t('admin.view')} #{t('admin.packages')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Tier</th>
+          <th>Status</th>
+          <th>Chat Status</th>
+          <th>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Gender</th>
+                  <th>Type</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+            </table>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @packages.each do |package| %>
+          <tr>
+            <td>
+              <%= package.name %>
+            </td>
+            <td>
+              <%= package.tier %>
+            </td>
+            <td>
+              <%= package.status.titleize %>
+            </td>
+            <td>
+              <%= package.chat_enabled? ? 'Enabled' : 'Disabled' %>
+            </td>
+            <td>
+              <table class="table">
+                <tbody>
+                  <% package.prices.active.each do |price| %>
+                    <tr>
+                      <td>
+                        <%= price.gender.capitalize %>
+                      </td>
+                      <td>
+                        <%= package_price_type(price) %>
+                      </td>
+                      <td>
+                        <%= Cms::Price.new(price: price.value).single %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </td>
+            <td width="10%">
+              <%= link_to edit_admin_package_path(package) do %>
+                <i class="fa fa-pencil-square-o"></i>
+              <% end %>
+
+              <%= link_to admin_package_path(package), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <i class="fa fa-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+//= require jquery
+//= require jquery_ujs
+//= require chosen/chosen.jquery.min
+//= require bootstrap-datepicker/js/bootstrap-datepicker
+//= require bootstrap-material-design/dist/js/material
+//= require Chart.js/Chart
+//= require _myNewGirl
+//= require myNewGirl.misc
+//= require myNewGirl.admin
+//= require admin.ready
+//= require jquery_nested_form

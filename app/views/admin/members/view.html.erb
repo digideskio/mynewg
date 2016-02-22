@@ -1,0 +1,154 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_members_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-users"></i> <%= t('new_admin.member_table') %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th><%= t('new_admin.member.name') %></th>
+          <th>Display Name</th>
+          <th><%= t('new_admin.member.gender') %></th>
+          <th><%= t('new_admin.member.email') %></th>
+          <th><%= t('new_admin.member.role') %></th>
+          <th><%= t('new_admin.member.package') %></th>
+          <th><%= t('new_admin.member.representative') %></th>
+          <th><%= t('new_admin.member.created_at') %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @members.each do |member| %>
+          <tr>
+            <td><%= member.name %></td>
+            <td><%= member.display_name %></td>
+            <td><%= member.gender.capitalize %></td>
+            <td><%= member.email %></td>
+            <td><%= member.role.titleize %></td>
+            <td><%= member.package.try(:name) %></td>
+            <td><%= member.representative.try(:name) %></td>
+            <td><%= member.created_at.strftime(" #{member.created_at.day.ordinalize} %b %Y") %></td>
+            <td>
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#<%= member.username %>">
+                <i class="fa fa-search"></i>
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="<%= member.username %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h2 class="modal-title" id="myModalLabel"><%= member.name %></h2>
+                    </div>
+                    <div class="modal-body">
+                      <!-- <h2><%= member.name %></h2> -->
+                      <div class="row">
+                        <div class="col-md-4">
+                          <ul>
+                            <li><strong><%= t('new_admin.member.created_at') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.sign_in_count') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.last_sign_in_at') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.last_sign_in_ip') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.role') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.sales_code') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.date_of_birth') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.username') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.gender') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.email') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.role') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.package') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.current_sign_in_at') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.current_sign_in_ip') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.updated_at') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.omise_id') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.status') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.location') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.phone') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.line_id') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.drink') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.english') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.height') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.kids') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.smoke') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.thai') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.visible') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.deleted_at') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.platinum') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.paid_by_cash') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.cash_amount') %> </strong></li>
+                            <li><strong><%= t('new_admin.member.biography') %></strong></li>     
+                            <li><strong><%= t('new_admin.member.locale') %></strong></li>     
+                          </ul>
+                        </div>
+
+                        <div class="col-md-8">
+                          <ul>
+                            <li><%= member.created_at %></li>
+                            <li><%= member.sign_in_count %></li>
+                            <li><%= member.last_sign_in_at %></li>
+                            <li><%= member.last_sign_in_ip %></li>
+                            <li><%= member.role %></li>
+                            <li><%= member.sales_code %></li>
+                            <li><%= member.date_of_birth %></li>
+                            <li><%= member.username %></li>
+                            <li><%= member.gender.capitalize %></li>
+                            <li><%= member.email %></li>
+                            <li><%= member.role.titleize %></li>
+                            <li><%= member.package.try(:name) %></li>
+                            <li><%= member.current_sign_in_at %></li>
+                            <li><%= member.current_sign_in_ip %></li>
+                            <li><%= member.updated_at %></li>
+                            <li><%= member.omise_id %></li>
+                            <li><%= member.status.titleize %></li>
+                            <li><%= member.location %></li>
+                            <li><%= member.phone %></li>
+                            <li><%= member.line_id %></li>
+                            <li><%= member.drink %></li>
+                            <li><%= member.english %></li>
+                            <li><%= member.height %></li>
+                            <li><%= member.kids %></li>
+                            <li><%= member.smoke %></li>
+                            <li><%= member.thai %></li>
+                            <li><%= member.visible %></li>
+                            <li><%= member.deleted_at %></li>
+                            <li><%= member.platinum %></li>
+                            <li><%= member.paid_by_cash %></li>
+                            <li><%= member.cash_amount %></li>
+                            <li><%= member.biography %></li>
+                            <li><%= member.locale %></li>
+                          </ul>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                      <%= link_to edit_admin_member_path(member) do %>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i><%= t('new_admin.member.edit') %></button>
+                      <% end %>
+
+                      <%= link_to admin_member_path(member), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                          <button type="button" class="btn btn-primary"><i class="icon-remove"></i><%= t('new_admin.member.delete') %></button>
+                      <% end %>
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('new_admin.close') %></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

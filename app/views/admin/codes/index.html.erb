@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_root_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> <%= "#{t('admin.code')} #{t('admin.manager')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+  <%= link_to view_admin_codes_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-ticket fa-5x"></i>
+        <h3><%= t('admin.view_all') %> Standard <%= t('admin.codes') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.admin? %>
+    <%= link_to new_admin_code_path do %>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <i class="fa fa-plus fa-5x"></i>
+          <h3>Create standard<br><%= t('admin.codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% if current_user.admin? %>
+  <hr>
+
+  <div class="row text-center">
+    <%= link_to admin_scratch_codes_path do %>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <i class="fa fa-ticket fa-5x"></i>
+          <h3><%= t('admin.view_all') %> SCRATCH <%= t('admin.codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to edit_admin_scratch_codes_path do %>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <i class="fa fa-ticket fa-5x"></i>
+          <h3>Assign SCRATCH <%= t('admin.codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+  <hr>
+
+  <div class="row text-center">
+    <%= link_to admin_multi_codes_path do %>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <i class="fa fa-ticket fa-5x"></i>
+          <h3><%= t('admin.view_all') %> MULTI <%= t('admin.codes') %></h3>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.admin? %>
+      <%= link_to new_admin_multi_code_path do %>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <i class="fa fa-plus fa-5x"></i>
+            <h3>Create MULTI<br><%= t('admin.codes') %></h3>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+<hr>
+<div class="row text-center">
+  <%= link_to view_admin_codes_path(status: 'used') do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-ticket fa-5x"></i>
+        <h3><%= t('admin.view_all') %> Used <%= t('admin.codes') %></h3>
+      </div>
+    </div>
+  <% end %>
+</div>

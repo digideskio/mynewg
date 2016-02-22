@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><i class="fa fa-flag"></i> View All User Flags</h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Flagged User</th>
+          <th>Reason</th>
+          <th>Additional Info</th>
+          <th>Created Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @user_flags.each do |flag| %>
+          <tr>
+            <td>
+              <%= flag.user.name %>
+            </td>
+            <td>
+              <%= flag.flagged_user.name %>
+            </td>
+            <td>
+              <%= flag.reason.titleize %>
+            </td>
+            <td>
+              <%= flag.additional_info %>
+            </td>
+            <td>
+              <%= flag.created_at.strftime('%d/%m/%Y %H:%M') %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

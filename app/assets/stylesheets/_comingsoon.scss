@@ -1,0 +1,49 @@
+.center-height {
+ 	margin-top: 100px;
+}
+
+
+#coming-soon-1 {
+	font-family: $baseline-title-font;
+	font-size: $baseline-size * 2;
+	color: white;
+	margin-bottom: 20px;
+	// line-height: 68px;
+}
+
+#coming-soon-2 {	
+	font-family: $baseline-title-font;
+	font-size: $baseline-size * 0.875;
+	color: $pink;
+	margin-bottom: 20px;
+	// line-height: 29px;
+}
+
+#coming-soon-3 {
+	font-family: $baseline-title-font;
+	font-size: $baseline-size * 1.3;
+	color: white;
+	margin-bottom: 20px;
+	// line-height: 44px;
+}
+
+@media all and (min-width: 480px) {
+	.center-height {
+		margin-top: 200px;
+	}
+
+	#coming-soon-1 {
+		font-size: $baseline-size * 4;
+		margin-bottom: auto;
+	}
+
+	#coming-soon-2 {
+		font-size: $baseline-size * 1.75;
+		margin-bottom: auto;
+	}
+
+	#coming-soon-3 {
+		font-size: $baseline-size * 2.6;
+		margin-bottom: auto;
+	}
+}

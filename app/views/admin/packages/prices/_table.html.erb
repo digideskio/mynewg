@@ -1,0 +1,18 @@
+<table class="table table-striped table-responsive table-bordered table-hover table-form">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Gender</th>
+      <th>Type</th>
+      <th>Value</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="package-price-fields">
+    <% @package.prices.active.each do |price| %>
+      <tr id="price_<%= price.id %>">
+        <%= render partial: 'admin/packages/prices/single', format: [:html], locals: { price: price } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

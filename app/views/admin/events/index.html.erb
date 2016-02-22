@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_root_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-calendar"></i> <%= "#{t('admin.events')} #{t('admin.manager')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row text-center">
+  <%= link_to view_admin_events_path(type: 'attendable') do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-calendar fa-5x"></i>
+        <h3><%= t('admin.view_all') %><br><%= t('admin.events') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to new_admin_event_path do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-plus fa-5x"></i>
+        <h3><%= t('admin.add_new') %><br><%= t('admin.event') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to view_admin_events_path(type: 'past') do %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-calendar fa-5x"></i>
+        <h3>Past<br><%= t('admin.events') %></h3>
+      </div>
+    </div>
+  <% end %>
+
+<!--   <a href="#events/update">
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <i class="fa fa-edit fa-5x"></i>
+        <h3><%= "#{t('admin.update')} #{t('admin.event')}" %></h3>
+      </div>
+    </div>
+  </a> -->
+</div>

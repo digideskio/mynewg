@@ -1,0 +1,72 @@
+.date {
+	margin-top: 50px;
+	margin-bottom: 35px;
+	font-size: 2em;
+}
+
+.event-box {
+	margin-top: 30px;
+	margin-bottom: 50px;
+	h3 {
+		padding: 0;
+		margin: 10px 0 5px;
+		font-size: 1.25em;
+	}
+	small {
+		color: $link-color;
+		font-size: 1.125em
+	}
+	p {
+		margin-top: 10px;
+	}
+}
+
+.info {
+	margin-top: 0;
+	// margin-bottom: 10px;
+}
+
+.pic-box {
+	width: 80%;
+	margin: 10%;
+	overflow: hidden;
+	border-radius: 50%;
+
+	img {
+		width: 100%;
+
+	}
+}
+
+.attendees {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.button {
+	width: 30%;
+}
+
+@media (max-width: 500px) {
+	.button {
+		width: 100%;
+	}
+
+}
+
+@media (max-width: 768px) {
+	.content-box {
+		margin-top: 30px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

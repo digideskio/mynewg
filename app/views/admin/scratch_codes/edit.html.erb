@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_codes_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-ticket"></i> Assign Scratch <%= "#{t('admin.codes')}" %></h1>
+    <hr>
+  </div>
+</div>
+<h2>There are currently <%= @codes.count %> unassigned scratch codes</h2>
+<%= form_for(:codes, url: assign_admin_scratch_codes_path, method: :patch) do |f| %>
+  <div class="row panel">
+    <div class="col-md-3">
+      <h3>How codes do you want to assign?</h3>
+      <p>Specify the number of codes you would like to assign to representative.</p>
+    </div>
+
+    <div class="col-md-9">
+      <fieldset class="widget widget-content">
+        <div class="form-group">
+          <%= f.number_field :count, :id => 'code-new', class: 'form-control', value: '5', min: 1, max: @codes.count %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row panel">
+      <div class="col-md-3">
+        <h3>Code Representative</h3>
+        <p>Set codes representative owner</p>
+      </div>
+      <div class="col-md-9">
+        <fieldset class="widget widget-content">
+          <div class="form-group">
+            <%= label_tag 'Representative' %>
+            <%= select_tag :representative_id, options_from_collection_for_select(@representatives, 'id', 'name') %>
+          </div>
+        </fieldset>
+        <div class="form-action">
+          <%= f.submit 'Create', class: 'btn btn-success btn-large pull-right' %>
+        </div>
+      </div>
+    </div>
+<% end %>

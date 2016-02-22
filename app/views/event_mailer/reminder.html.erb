@@ -1,0 +1,20 @@
+<% content_for :title, "Welcome to your new account #{@user.name}" %>
+<% content_for :header_1, "Event Reminder" %>
+<% content_for :header_2, @event.name %>
+<tr>
+    <td><%= image_tag "#{Rails.application.secrets.mailer_asset_host}/clear.gif", :style => 'block', :width => '50', :height => '30' %></td>
+    <td align="left" width="500">
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Hello <%= @user.name %>,</p> 
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Dont forget on <strong><%= @event.start_date.strftime(" #{@event.start_date.day.ordinalize} %B") %></strong> is our <strong><%= @event.name %></strong> event.</p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Fun starts at <%= @event.start_date.strftime("%I:%M%P") %> and goes on until <%= @event.end_date.strftime("%I:%M%P") %>.</p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;"><%= @event.description %></p>
+        <br/>
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;">Have an amazing day and see you at the event!</p>
+        <br>    
+        <p style="letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #333333 !important; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0;"><strong>MyNewG Team</strong></p>
+    </td>
+    <td><%= image_tag "#{Rails.application.secrets.mailer_asset_host}/clear.gif", :style => 'block', :width => '50', :height => '30' %></td>
+</tr>

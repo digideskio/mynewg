@@ -1,0 +1,1759 @@
+swagger: "2.0"
+info:
+  version: "0.0.62"
+  title: My New Girl API
+# during dev, should point to your local machine
+#host: 127.0.0.1:10010 # let this be dynamic
+# basePath prefixes all resource paths
+host: api.mynewgirl.com
+basePath: /v1
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+  - text/plain
+  - text/html
+
+# TODO: Is this not getting set properly?
+securityDefinitions:
+  internalApiKey:
+    type: apiKey
+    name: access-token
+    in: header
+
+# TODO: Update security in endpoints
+
+paths:
+  /auth/sign_in:
+    x-swagger-router-controller: auth
+
+    post:
+      description: Authenticates user
+      operationId: logIn
+      security: []
+      parameters:
+        - name: user
+          description: User object
+          in: body
+          schema:
+            $ref: "#/definitions/UserSignInFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/CurrentUserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /auth/sign_out:
+    x-swagger-router-controller: auth
+
+    delete:
+      description: De-authenticates user
+      operationId: logOut
+      security:
+        - internalApiKey: []
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /auth/validate_token:
+    x-swagger-router-controller: auth
+
+    get:
+      description: Validate a user's token
+      operationId: validateToken
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: uid
+          in: formData
+          description: Email of user
+          required: true
+          type: string
+        - name: access-token
+          in: formData
+          description: Access token used to authenticate the user
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CurrentUserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /auth/facebook:
+    x-swagger-router-controller: auth
+
+    post:
+      description: Signs up a Facebook user
+      operationId: signUpFacebook
+      security: []
+      parameters:
+        - name: user
+          description: User object
+          in: body
+          schema:
+            $ref: "#/definitions/UserFacebookSignupFormObject"
+      responses:
+        201:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    get:
+      description: Validate a user's facebook account
+      operationId: validateFacebook
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /chats:
+    x-swagger-router-controller: chat
+
+    get:
+      description: Get a list of chats
+      operationId: getChats
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              chats:
+                type: array
+                items:
+                  $ref: "#/definitions/ChatResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    post:
+      description: Create a chat
+      operationId: createAChat
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: recipient_id
+          in: formData
+          description: Id of recipient user in chat
+          required: true
+          type: integer
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/ChatResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /chats/{chat_id}:
+    x-swagger-router-controller: message
+
+    get:
+      description: Gets a chat
+      operationId: getChat
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: chat_id
+          in: path
+          description: Chat object id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/ChatResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    delete:
+      description: Delete a chat
+      operationId: deleteChat
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: chat_id
+          in: path
+          description: Chat id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /chats/{chat_id}/messages:
+    x-swagger-router-controller: message
+
+    get:
+      description: Get a list of messages for a chat
+      operationId: getChatMessages
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: chat_id
+          in: path
+          description: Chat id
+          required: true
+          type: integer
+        - name: page
+          in: query
+          description: Page of results for pagination
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: Limit results per page for pagination
+          required: false
+          type: integer
+        - name: last_message_id
+          in: query
+          description: "Id of the last message the client has seen. If present, will only return messages that were created after that id"
+          required: false
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              per_page:
+                type: integer
+              pages:
+                type: integer
+              current_page:
+                type: integer
+              messages:
+                type: array
+                items:
+                  $ref: "#/definitions/MessageResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /chats/{chat_id}/read:
+    x-swagger-router-controller: message
+
+    patch:
+      description: Mark unread messages in chat as read
+      operationId: readChatMessages
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: chat_id
+          in: path
+          description: Chat id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events:
+    x-swagger-router-controller: event
+
+    get:
+      description: Gets all events
+      operationId: getEvents
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              events:
+                type: array
+                items:
+                  $ref: "#/definitions/EventResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events/join:
+    x-swagger-router-controller: event_attendee
+
+    post:
+      description: Join an event for a user
+      operationId: joinEvent
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: event_attendee
+          description: Event attendee object
+          in: body
+          schema:
+            $ref: "#/definitions/EventAttendeeFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/EventAttendeeResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events/{event_id}:
+    x-swagger-router-controller: event
+
+    get:
+      description: Gets an event
+      operationId: getEvent
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: event_id
+          in: path
+          description: Event object id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/EventResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events/{event_id}/attendees:
+    x-swagger-router-controller: event
+
+    get:
+      description: Gets all events
+      operationId: getEventAttendees
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: event_id
+          in: path
+          description: Id of the event
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              attendees:
+                type: array
+                items:
+                  $ref: "#/definitions/AttendeeResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events/{event_id}/invite/{user_id}:
+    x-swagger-router-controller: event
+
+    post:
+      description: Invite a user to an event
+      operationId: inviteToEvent
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: event_id
+          description: Related event id
+          in: path
+          required: true
+          type: integer
+        - name: user_id
+          description: User id to invite
+          in: path
+          required: true
+          type: integer
+      responses:
+        201:
+          description: Success
+          # schema:
+          #   $ref: "#/definitions/"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /events/{event_id}/unjoin:
+    x-swagger-router-controller: event_attendee
+
+    delete:
+      description: Unjoin an event for a user
+      operationId: unjoinEvent
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: event_id
+          in: path
+          description: Event id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /favourites:
+    x-swagger-router-controller: favourite
+
+    post:
+      description: Favourite a user
+      operationId: favouriteAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: favourite
+          description: Favourite object
+          in: body
+          schema:
+            $ref: "#/definitions/FavouriteFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/FavouriteResponse"
+
+  /appointments:
+    x-swagger-router-controller: appointment
+
+    post:
+      description: Create an appointment for a user
+      operationId: userAppointment
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: appointment
+          description: Appointment object
+          in: body
+          schema:
+            $ref: "#/definitions/AppointmentFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/AppointmentResponse"
+
+  /favourites/{favourite_id}:
+    x-swagger-router-controller: favourite
+
+    delete:
+      description: Delete a favourited user
+      operationId: deleteFavouriteUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: favourite_id
+          in: path
+          description: Favourite object id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /images:
+    x-swagger-router-controller: image
+
+    post:
+      description: Add an image to the user's profile gallery
+      operationId: addToGallery
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: attachment
+          description: Attachment object
+          in: body
+          schema:
+            $ref: "#/definitions/AttachmentFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/ImageResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /images/avatar:
+    x-swagger-router-controller: image
+
+    patch:
+      description: Update avatar
+      operationId: updateAvatar
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: attachment
+          description: Attachment object
+          in: body
+          schema:
+            $ref: "#/definitions/AttachmentFormObject"
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /images/cover:
+    x-swagger-router-controller: image
+
+    patch:
+      description: Update cover
+      operationId: updateCover
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: attachment
+          description: Attachment object
+          in: body
+          schema:
+            $ref: "#/definitions/AttachmentFormObject"
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
+  /images/{image_id}/set_avatar:
+    x-swagger-router-controller: image
+
+    patch:
+      description: Select avatar
+      operationId: selectAvatar
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: image_id
+          in: path
+          description: Image id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /images/{image_id}:
+    x-swagger-router-controller: image
+
+    patch:
+      description: Update an image
+      operationId: updateImage
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: image_id
+          in: path
+          description: Image id
+          required: true
+          type: integer
+        - name: attachment
+          description: Attachment object
+          in: body
+          schema:
+            $ref: "#/definitions/AttachmentFormObject"
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    delete:
+      description: Remove an image from the user's profile gallery
+      operationId: removeFromGallery
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: image_id
+          in: path
+          description: Id of the image
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /likes:
+    x-swagger-router-controller: like
+
+    post:
+      description: Like a user
+      operationId: likeAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: like
+          description: Like object
+          in: body
+          schema:
+            $ref: "#/definitions/LikeFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/LikeResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /messages:
+    x-swagger-router-controller: message_create
+
+    post:
+      description: Creates a new Message
+      operationId: createMessage
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: message
+          description: Message object
+          in: body
+          schema:
+            $ref: "#/definitions/MessageFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/MessageResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /packages:
+    x-swagger-router-controller: package
+
+    get:
+      description: Get packages
+      operationId: getPackages
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              packages:
+                type: array
+                items:
+                  $ref: "#/definitions/PackageResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /prices/{package_price_id}/purchase:
+    x-swagger-router-controller: package_price
+
+    post:
+      description: Purchase a new package 
+      operationId: purchasePackage
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: package_price_id
+          in: path
+          description: Package price id
+          required: true
+          type: integer
+        - name: card_token
+          in: formData
+          description: Omise card token
+          required: false
+          type: string
+        - name: discount_code
+          in: formData
+          description: Discount code
+          required: false
+          type: string
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/PackagePurchaseResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users:
+    x-swagger-router-controller: registrations
+
+    post:
+      description: Create user
+      operationId: createUser
+      security: []
+      parameters:
+        - name: user
+          description: User object
+          in: body
+          schema:
+            $ref: "#/definitions/UserSignUpFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/CurrentUserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/validate_code:
+    x-swagger-router-controller: user
+
+    post:
+      description: Validate a user's sales code
+      operationId: validateSalesCode
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: code
+          in: formData
+          description: Sales code
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/ValidSalesCodeResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/block:
+    x-swagger-router-controller: user_block
+
+    post:
+      description: Block a user
+      operationId: blockAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_block
+          description: User block object
+          in: body
+          schema:
+            $ref: "#/definitions/UserBlockFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/UserBlockResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/block/{blocked_id}:
+    x-swagger-router-controller: user_block
+
+    delete:
+      description: Unblock a user
+      operationId: unblockAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: blocked_id
+          in: path
+          description: Id of the blocked user
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/flag:
+    x-swagger-router-controller: user_flag
+
+    post:
+      description: Flag a user
+      operationId: flagAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_flag
+          description: User flag object
+          in: body
+          schema:
+            $ref: "#/definitions/UserFlagFormObject"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/UserFlagResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/flag/{flagged_id}:
+    x-swagger-router-controller: user_flag
+
+    delete:
+      description: Flag a user
+      operationId: unflagAUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: flagged_id
+          in: path
+          description: Id of the flagged user
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/discover:
+    x-swagger-router-controller: user_discover
+
+    get:
+      description: Discover new users
+      operationId: discoverUsers
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: page
+          in: query
+          description: Page of results for pagination
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: Limit results per page for pagination
+          required: false
+          type: integer
+        - name: gender
+          in: query
+          description: Filter results by gender
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              per_page:
+                type: integer
+              pages:
+                type: integer
+              current_page:
+                type: integer
+              users:
+                type: array
+                items:
+                  $ref: "#/definitions/UserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/favourites:
+    x-swagger-router-controller: favourite
+
+    get:
+      description: Gets user's favourites
+      operationId: getFavourites
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  $ref: "#/definitions/UserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/me:
+    x-swagger-router-controller: user
+
+    get:
+      description: Gets the logged in user
+      operationId: getOwnUser
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CurrentUserResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/notifications:
+    x-swagger-router-controller: notification
+
+    get:
+      description: Gets user's notifications
+      operationId: getNotifications
+      security:
+        - internalApiKey: []
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              notifications:
+                type: array
+                items:
+                  $ref: "#/definitions/NotificationResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/notifications/{notification_id}/read:
+    x-swagger-router-controller: notification
+
+    patch:
+      description: Marks user's notification as read
+      operationId: markNotificationAsRead
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: notification_id
+          in: path
+          description: Notification id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/search:
+    x-swagger-router-controller: user_search
+
+    get:
+      description: Search for users by keyword(s)
+      operationId: searchUsers
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: q
+          in: query
+          description: Keyword(s) to search for
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  $ref: "#/definitions/UserResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/{user_id}:
+    x-swagger-router-controller: user
+
+    get:
+      description: Gets a user
+      operationId: getUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_id
+          in: path
+          description: User object id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/UserResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    patch:
+      description: Update a user
+      operationId: updateUser
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_id
+          in: path
+          description: User id
+          required: true
+          type: integer
+        - name: user
+          description: User object
+          in: body
+          schema:
+            $ref: "#/definitions/UserSignUpFormObject"
+      responses:
+        204:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/{user_id}/events:
+    x-swagger-router-controller: event
+
+    get:
+      description: Gets user's events
+      operationId: getUserEvents
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_id
+          in: path
+          description: User object id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              events:
+                type: array
+                items:
+                  $ref: "#/definitions/EventResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users/{user_id}/images:
+    x-swagger-router-controller: image
+
+    get:
+      description: Gets user's gallery images
+      operationId: getGallery
+      security:
+        - internalApiKey: []
+      parameters:
+        - name: user_id
+          in: path
+          description: User object id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              images:
+                type: array
+                items:
+                  $ref: "#/definitions/ImageResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+definitions:
+  CurrentUserResponse:
+    properties:
+      age:
+        type: integer
+      avatar_url:
+        type: string
+      cover_photo_url:
+        type: string
+      drink:
+        type: string
+      email:
+        type: string
+      english:
+        type: string
+      events:
+        type: integer
+      gender:
+        type: string
+      height:
+        type: integer
+      is_admin:
+        type: boolean
+      is_frozen:
+        type: boolean
+      is_junior_representative:
+        type: boolean
+      is_lead:
+        type: boolean
+      is_limited:
+        type: boolean
+      is_member:
+        type: boolean
+      is_senior_representative:
+        type: boolean
+      kids:
+        type: boolean
+      likes:
+        type: integer
+      line_id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      package:
+        type: string
+      phone:
+        type: string
+      smoke:
+        type: string
+      thai:
+        type: string
+      uid:
+        type: integer
+      username:
+        type: string
+      display_name:
+        type: string
+      biography:
+        type: string
+      locale:
+        type: string
+      provider:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+
+  UserResponse:
+    properties:
+      age:
+        type: integer
+      avatar_url:
+        type: string
+      can_chat:
+        type: boolean
+      cover_photo_url:
+        type: string
+      current_chat_id:
+        type: integer
+      drink:
+        type: string
+      email:
+        type: string
+      english:
+        type: string
+      events:
+        type: integer
+      favourite_id:
+        type: integer
+      gender:
+        type: string
+      height:
+        type: integer
+      is_admin:
+        type: boolean
+      is_blocked:
+        type: boolean
+      is_favourite:
+        type: boolean
+      is_flagged:
+        type: boolean
+      is_frozen:
+        type: boolean
+      is_junior_representative:
+        type: boolean
+      is_lead:
+        type: boolean
+      is_limited:
+        type: boolean
+      is_member:
+        type: boolean
+      is_senior_representative:
+        type: boolean
+      kids:
+        type: boolean
+      like_initiator_id:
+        type: integer
+      line_id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      package:
+        type: string
+      phone:
+        type: string
+      smoke:
+        type: string
+      thai:
+        type: string
+      uid:
+        type: integer
+      username:
+        type: string
+      display_name:
+        type: string
+      biography:
+        type: string
+      locale:
+        type: string
+      provider:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+
+  AttendeeResponse:
+    required:
+      - uid
+      - name
+      - avatar_url
+
+    properties:
+      uid:
+        type: integer
+      name:
+        type: string
+      avatar_url:
+        type: string
+
+  ImageResponse:
+    required:
+      - uid
+      - user_id
+
+    properties:
+      uid:
+        type: integer
+      user_id:
+        type: string
+      thumb_url:
+        type: string
+      standard_url:
+        type: string
+
+  EventResponse:
+    required:
+      - uid
+      - title
+      - info
+      - location
+      - start
+      - end
+      - is_attending
+      - can_attend
+      - thumb_url
+      - standard_url
+
+    properties:
+      uid:
+        type: integer
+      title:
+        type: string
+      info:
+        type: string
+      location:
+        type: string
+      start:
+        type: string
+        format: date-time
+      end:
+        type: string
+        format: date-time
+      attendees:
+        type: integer
+      max_attendees:
+        type: integer
+      is_attending:
+        type: boolean
+      can_attend:
+        type: boolean
+      thumb_url:
+        type: string
+      standard_url:
+        type: string
+
+  LikeResponse:
+    required:
+      - uid
+      - user_id
+      - like_id
+
+    properties:
+      uid:
+        type: integer
+      user_id:
+        type: integer
+      like_id:
+        type: integer
+
+  FavouriteResponse:
+    required:
+      - uid
+      - user_id
+      - favourite_id
+
+    properties:
+      uid:
+        type: integer
+      user_id:
+        type: integer
+      favourite_id:
+        type: integer
+
+  AppointmentResponse:
+    required:
+      - uid
+      - user_id
+      - scheduled_time
+
+    properties:
+      uid:
+        type: integer
+      user_id:
+        type: integer
+      scheduled_time:
+        type: string
+        format: date-time
+
+  EventAttendeeResponse:
+    required:
+      - uid
+      - event_id
+      - attendee_id
+
+    properties:
+      uid:
+        type: integer
+      event_id:
+        type: integer
+      attendee_id:
+        type: integer
+      checked_in:
+        type: boolean
+
+  UserBlockResponse:
+    required:
+      - uid
+      - blocked_id
+      - user_id
+
+    properties:
+      uid:
+        type: integer
+      blocked_id:
+        type: integer
+      user_id:
+        type: integer
+
+  UserFlagResponse:
+    required:
+      - uid
+      - flagged_id
+      - user_id
+      - reason
+
+    properties:
+      uid:
+        type: integer
+      flagged_id:
+        type: integer
+      user_id:
+        type: integer
+      reason:
+        type: string
+      additional_info:
+        type: string
+
+  ChatResponse:
+    required:
+      - uid
+      - active
+      - can_chat
+      - recipient_id
+      - recipient_name
+      - recipient_avatar_url
+
+    properties:
+      uid:
+        type: integer
+      active:
+        type: boolean
+      can_chat:
+        type: boolean
+      recipient_id:
+        type: integer
+      recipient_name:
+        type: string
+      recipient_avatar_url:
+        type: string
+      unread_message_count:
+        type: integer
+      last_message_text:
+        type: string
+      last_message_date:
+        type: string
+        format: date-time
+
+  MessageResponse:
+    properties:
+      chat_id:
+        type: integer
+      is_read:
+        type: boolean
+      is_self:
+        type: boolean
+      sent_time:
+        type: string
+        format: date-time
+      text:
+        type: string
+      uid:
+        type: integer
+      user_id:
+        type: integer
+
+  PackageResponse:
+    properties:
+      name:
+        type: string
+
+  NotificationResponse:
+    required:
+      - uid
+      - is_like
+      - text
+      - is_read
+      - user_id
+      - source_id
+      - sent_time
+
+    properties:
+      uid:
+        type: integer
+      is_like:
+        type: boolean
+      text:
+        type: string
+      user_id:
+        type: integer
+      event_id:
+        type: integer
+      source_id:
+        type: integer
+      is_read:
+        type: boolean
+      sent_time:
+        type: string
+        format: date-time
+
+  PackagePurchaseResponse:
+    required:
+      - success
+      - amount
+      - charge_id
+      - transaction_id
+      - created_at
+    properties:
+      success:
+        type: string
+      amount:
+        type: integer
+      charge_id:
+        type: string
+      transaction_id:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+
+  ErrorResponse:
+    required:
+      - errors
+    properties:
+      errors:
+        type: string
+
+  ValidSalesCodeResponse:
+    required:
+      - code_available
+      - gender
+    properties:
+      code_available:
+        type: boolean
+      gender:
+        type: string
+
+  UserBlockFormObject:
+    required:
+      - blocked_id
+    properties:
+      blocked_id:
+        type: integer
+
+  UserFlagFormObject:
+    required:
+      - flagged_id
+    properties:
+      flagged_id:
+        type: integer
+      reason:
+        type: string
+      additional_info:
+        type: string
+
+  UserSignInFormObject:
+    required:
+      - login
+      - password
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+
+  UserFacebookSignupFormObject:
+    required:
+      - date_of_birth
+      - email
+      - name
+      - facebook_id
+      - phone
+      - sales_code
+      - location
+      - gender
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      date_of_birth:
+        type: string
+        format: date-time
+      phone:
+        type: string
+      sales_code:
+        type: string
+      location:
+        type: string
+      gender:
+        type: string
+      facebook_id:
+        type: string
+
+  UserSignUpFormObject:
+    required:
+      - date_of_birth
+      - email
+      - line_id
+      - name
+      - password
+      - phone
+      - sales_code
+    properties:
+      age:
+        type: integer
+      date_of_birth:
+        type: string
+        format: date-time
+      drink:
+        type: string
+      email:
+        type: string
+      english:
+        type: string
+      gender:
+        type: string
+      height:
+        type: string
+      kids:
+        type: boolean
+      line_id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+        format: password
+      password_confirmation:
+        type: string
+        format: password
+      phone:
+        type: string
+      smoke:
+        type: string
+      thai:
+        type: string
+      sales_code:
+        type: string
+      username:
+        type: string
+
+  AttachmentFormObject:
+    required:
+      - file
+    properties:
+      file:
+        type: string
+
+  EventAttendeeFormObject:
+    required:
+      - event_id
+    properties:
+      event_id:
+        type: integer
+
+  LikeFormObject:
+    required:
+      - like_id
+    properties:
+      like_id:
+        type: integer
+
+  FavouriteFormObject:
+    required:
+      - favourite_id
+    properties:
+      favourite_id:
+        type: integer
+
+  AppointmentFormObject:
+    required:
+      - scheduled_time
+    properties:
+      scheduled_time:
+        type: string
+        format: date-time
+
+  MessageFormObject:
+    required:
+      - chat_id
+      - text
+    properties:
+      chat_id:
+        type: integer
+      text:
+        type: string

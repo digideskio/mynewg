@@ -1,0 +1,27 @@
+<div class="billing">
+  <div class="enter_card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
+      <h2 class="text-center">Welcome</h2>
+      <div class="form-group">
+        <%= f.text_field :login, autofocus: true, placeholder: "EMAIL OR PHONE NUMBER" %>
+      </div>
+
+      <div class="form-group" >
+        <%= f.password_field :password, autocomplete: "off", placeholder: "PASSWORD" %>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="form-group form-checkbox">
+          <%= f.check_box :remember_me, {:id => "checkbox-remember"}  %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+
+      <div class="form-action">
+        <%= f.submit "Sign in" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

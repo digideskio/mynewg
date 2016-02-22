@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to '', admin_events_path, class: 'btn btn-primary btn-fab btn-raised mdi-content-reply pull-right' %>
+    <h1><i class="fa fa-calendar"></i> <%= params[:type].titleize unless params[:type].nil? %> <%= "#{t('admin.event')} #{t('admin.tables')}" %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table id="datatable" class="table-bordered table-striped table-responsive table-condensed table-hover text-center">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Max Attendees</th>
+          <th>Description</th>
+          <th style="min-width: 64px;">Start Date</th>
+          <th style="min-width: 64px;">End Date</th>
+          <th>Packages</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @events.each do |event| %>
+            <tr>
+              <td>
+                <%= event.name %>
+              </td>
+              <td>
+                <%= event.location %>
+              </td>
+              <td>
+                <%= event.max_attendees %>
+              </td>
+              <td>
+                <%= event.description %>
+              </td>
+              <td>
+                <%= event.start_date.strftime(" #{event.start_date.day.ordinalize} %b %Y") %><br>
+                <%= event.start_date.strftime("%R") %>
+              </td>
+              <td>
+                <%= event.end_date.strftime(" #{event.end_date.day.ordinalize} %b %Y") %><br>
+                <%= event.end_date.strftime("%R") %>
+              </td>
+              <td>
+                <table>
+                  <tbody>
+                    <% event.packages.each do |package| %>
+                      <tr>
+                        <td>
+                          <%= package.name %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <%= link_to edit_admin_event_path(event) do %>
+                  <i class="fa fa-pencil-square-o"></i>
+                <% end %>
+
+                <%= link_to admin_event_path(event), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
